@@ -2,7 +2,7 @@
 
 Proof-of-concept FHIR Implementation Guide giving background on enterprise
 imaging (radiology, endoscopy and the other imaging specialties) in NHS trusts.
-Published at https://nw-gmsa.github.io/Imaging/. Supports the
+Published at https://kevinmayfield.github.io/Imaging/. Supports the
 [Cancer Pathology Report](https://github.com/nw-gmsa/CancerPathologyReport) IG
 (`../CancerPathologyReport`), whose Imaging page covers where imaging meets the
 pathology report.
