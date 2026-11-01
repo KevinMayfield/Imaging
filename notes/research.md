@@ -10,7 +10,7 @@ Dates are when the source was checked.
 
 | # | Question | Who could answer | Status |
 |---|---|---|---|
-| 1 | Take a dependency on `hl7.fhir.eu.imaging` 1.0.0-ballot? It depends on `hl7.fhir.eu.base` 2.0.0-ballot, `ihe.iti.mhd`, `fhir.dicom` and the R5 cross-version package; Cancer Pathology Report uses eu.base 2.0.1 | IG authors | Open |
+| 1 | Take a dependency on `hl7.fhir.eu.imaging` 1.0.0-ballot? It depends on `hl7.fhir.eu.base` 2.0.0-ballot, `ihe.iti.mhd`, `fhir.dicom` and the R5 cross-version package; Cancer Pathology Report uses eu.base 2.0.1 | IG authors | Decided 2026-11-01: depend on 1.0.0-ballot |
 | 2 | Has NHS England withdrawn NICIP in favour of SNOMED CT only? Data dictionary shows IMAGING CODE (NICIP) being replaced by CODED PROCEDURE (NICIP) (July 2026 release) | NHS England terminology / DID team | Open |
 | 3 | Full COSD v10 Core - Imaging item list and formats (only CR1610, CR3110, CR0340, retired CR0350 confirmed) | COSD v10 user guide | Open |
 | 4 | DiagnosticReport.category for endoscopy reports (v2-0074 has no endoscopy code) | IG authors | Open |
@@ -22,6 +22,10 @@ Dates are when the source was checked.
 | 10 | Check the imaging report data items on the FHIR Resources page against the RCR text (the table came from the NHS England draft IG, not the RCR original) | IG authors | Open |
 | 11 | Accession number `Identifier.system` convention for sharing between organisations | IG authors / NIR | Open |
 | 12 | Imaging site in DiagnosticReport.performer: SITE CODE (OF IMAGING) or ODS organisation code? | IG authors | Open |
+| 13 | DiagnosticReportEuImaging requires a Composition (FHIR document). Can NHS RIS reports (HL7 v2 ORU, text) meet this, or is a lighter report profile needed? | IG authors | Open |
+| 14 | How to distinguish primary and secondary reporters in DiagnosticReport.resultsInterpreter | IG authors | Open |
+| 16 | Create an NW core package for shared identifier conventions, replacing the copies in this guide (see Duplication below) | NW GMSA IG authors | Open |
+| 15 | tx.fhir.org has the SNOMED CT UK Edition (2023-04-12) but cannot expand refset 999001111000000105, so the UK Imaging Procedure value set and its bindings are not validated. Use the NHS England Terminology Server? | IG authors | Open |
 
 ## Sources Checked (2026-11-01)
 
@@ -64,3 +68,31 @@ Not incorporated:
   caused by Image Exchange Portal delays: no source given. To confirm before use.
 - Detailed DICOM KOS module tables (draft was incomplete, with open "CHECK"
   notes).
+
+## Duplication: NHS Identifier Conventions (2026-11-01)
+
+To clear the validator's "No definition could be found for URL" warnings and to
+follow NW GMSA identifier conventions, this guide **copies** artefacts rather than
+depending on another IG:
+
+| Copied | From | Into |
+|---|---|---|
+| NamingSystems: NHS number, ODS organisation code, ODS site code, GMC number, GMP number | NW GMSA `../FHIRGenomics/input/resources/*.json` - themselves copies of HL7 UK Core NamingSystems (publisher "HL7 UK") | `input/resources/` (unchanged) |
+| Identifier data types: CorrelationIdentifier, NHSIdentifier, MedicalRecordNumber, OrganisationCode, OrganisationSiteIdentifier, PractitionerIdentifier, ReportIdentifier, OrderIdentifier, VisitNumber, and the NWIdentifierType, UKNationalHealthIdentifiers, PractitionerIdentifiers value sets and their code systems | NW GMSA `../FHIRGenomics/input/fsh/DataTypes` and `Termininology` | `input/fsh/DataTypes/NWIdentifiers.fsh` (UK Core NHS number verification extension and NW GMSA ZCID code removed; CodeSystem retitled "UK National Health Identifier Systems" because its title duplicated the value set's - an IG Publisher error, so the NW GMSA source likely has the same error) |
+{:.grid}
+
+The same definitions now exist in HL7 UK Core, NW GMSA and this guide (and the
+Cancer Pathology Report IG has none). Copies drift, and canonical URLs differ
+between IGs, so profiles in one IG cannot reuse another's identifier types. This
+is the case for a small **NW core** package (NamingSystems, identifier data
+types, NW identifier value sets, aliases), with no genomics or UK Core
+pre-release dependencies and published to a registry the CI can resolve, that
+the NW GMSA, Cancer Pathology Report and Imaging IGs all depend on.
+
+Why not depend on NW GMSA now: it depends on `hl7.fhir.eu.base` 2.0.1 (EU
+Imaging ballot uses 2.0.0-ballot), pulls in UK Core pre-release, genomics
+reporting, SDC and BALP, and is published only at
+https://nw-gmsa.github.io/package.tgz, not packages.fhir.org.
+
+Still missing from all copies: an HCPC number NamingSystem
+(`https://fhir.hl7.org.uk/Id/hcpc-number`), needed for radiographers.

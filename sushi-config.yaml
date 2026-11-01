@@ -16,6 +16,12 @@ fhirVersion: 4.0.1
 jurisdiction: urn:iso:std:iso:3166#GB "United Kingdom of Great Britain and Northern Ireland"
 copyrightYear: 2026+
 
+dependencies:
+  hl7.fhir.eu.imaging: 1.0.0-ballot
+  # versions used by hl7.fhir.eu.imaging, declared so SUSHI can resolve them
+  hl7.fhir.eu.base: 2.0.0-ballot
+  hl7.fhir.eu.extensions.r4: 1.2.0
+
 FSHOnly: false
 parameters:
   shownav: true
@@ -64,5 +70,6 @@ menu:
     Imaging in the Cancer Pathway: CancerPathway.html
   Data Models (Volume 3):
     FHIR Resources: DataModel.html
+    Logical Model: StructureDefinition-RadiologyReport.html
     Terminology: terminology.html
   Artifacts: artifacts.html

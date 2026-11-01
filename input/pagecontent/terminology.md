@@ -7,8 +7,8 @@ proof of concept.
 </div>
 
 Code systems used for imaging. The SNOMED CT and LOINC codes below were checked
-on [tx.fhir.org](https://tx.fhir.org/); the DICOM modality codes were not. This
-guide defines no value sets yet.
+on [tx.fhir.org](https://tx.fhir.org/); the DICOM modality codes were not. Value
+sets defined by this guide are listed on the [Artifacts](artifacts.html) page.
 
 ### Imaging Procedure
 
@@ -23,7 +23,7 @@ guide defines no value sets yet.
 | 363679005 | Imaging | Top-level imaging procedure concept |
 | 423827005 | Endoscopy | Top-level endoscopy procedure concept |
 | 363680008 | Radiographic imaging procedure | Radiology procedures |
-| 999001111000000105 | United Kingdom diagnostic imaging procedure simple reference set | UK Edition refset of the SNOMED CT procedures that NICIP codes map to; a candidate value set for `ServiceRequest.code` and `ImagingStudy.procedureCode` |
+| 999001111000000105 | United Kingdom diagnostic imaging procedure simple reference set | UK Edition refset of the SNOMED CT procedures that NICIP codes map to; value set [UK Imaging Procedure](ValueSet-uk-imaging-procedure.html), bound to `ServiceRequest.code` and `ImagingStudy.procedureCode` |
 {:.grid}
 
 ### Document Type

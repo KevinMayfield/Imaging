@@ -20,9 +20,10 @@ endoscopy, cardiology, ophthalmology, medical photography and digital pathology
 also produce images and reports, usually in their own specialist systems. See
 [Enterprise Imaging](EnterpriseImaging.html).
 
-This guide **describes** systems, actors and standards. It does not yet define
-profiles; it points to [HL7 Europe Imaging Report](https://hl7.eu/fhir/imaging/)
-as the FHIR model for the imaging report - see [FHIR Resources](DataModel.html).
+This guide **describes** systems, actors and standards. Its first FHIR
+profiles, for the radiology request, study and report, are derived from
+[HL7 Europe Imaging Report](https://hl7.eu/fhir/imaging/) - see
+[FHIR Resources](DataModel.html).
 
 ### Content
 
@@ -46,7 +47,10 @@ as the FHIR model for the imaging report - see [FHIR Resources](DataModel.html).
 **Data Models (Volume 3)**
 
 - [FHIR Resources](DataModel.html) - FHIR resources for imaging orders, studies
-  and reports, and the HL7 Europe Imaging Report profiles
+  and reports, and this guide's radiology profiles based on HL7 Europe Imaging
+  Report
+- [Radiology Report](StructureDefinition-RadiologyReport.html) - logical model of
+  the radiology report data items
 - [Terminology](terminology.html) - code systems used for imaging procedures,
   modalities and report types
 

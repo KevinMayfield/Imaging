@@ -13,9 +13,9 @@ pathology report.
   alert box (copy it from an existing page). Never present content as
   authoritative or endorsed.
 - **Background, not a specification.** The guide describes systems, actors and
-  standards. It defines no profiles yet; the FHIR model for the imaging report is
-  HL7 Europe Imaging Report (`hl7.fhir.eu.imaging`, ballot) - taking a
-  dependency on it is an open decision.
+  standards. Its profiles are kept few and derive from HL7 Europe Imaging Report
+  (`hl7.fhir.eu.imaging` 1.0.0-ballot, a dependency decided 2026-11-01). The
+  radiology report logical model follows the RCR data items.
 - Keep pathology content in the Cancer Pathology Report IG; link to it rather
   than repeating it.
 
@@ -25,7 +25,7 @@ pathology report.
   Design (Enterprise Imaging, Radiology, Endoscopy, Other Imaging Specialties,
   Image Sharing, Imaging in the Cancer Pathway), Volume 3 Data Models (FHIR
   Resources, Terminology).
-- FSH (when added): `input/fsh/`.
+- FSH: `input/fsh/` - logical model at the top level, `Profiles/`, `Terminology/`.
 - A new page must be added to both `pages:` and `menu:` in `sushi-config.yaml`.
 - Research notes and open questions that should not be published:
   `notes/research.md` (outside `input/`, so the IG Publisher ignores it).

@@ -7,10 +7,45 @@ proof of concept.
 </div>
 
 This page shows the FHIR resources used for imaging orders, studies and reports.
-This guide **does not define profiles**. For the imaging report it points to
+This guide's profiles are derived from
 [HL7 Europe Imaging Report](https://hl7.eu/fhir/imaging/), the imaging
 counterpart of [HL7 Europe Laboratory Report](https://hl7.eu/fhir/laboratory/),
 which the Cancer Pathology Report IG is built on.
+
+### Profiles
+
+| Artefact | Based on | Use |
+|---|---|---|
+| [Radiology Report](StructureDefinition-RadiologyReport.html) (logical model) | RCR report data items | Content of a radiology report, with indicative HL7 v2, DICOM and FHIR mappings |
+| [Radiology Service Request](StructureDefinition-RadiologyServiceRequest.html) | `ServiceRequestOrderEuImaging` | Imaging request: NICIP / SNOMED CT procedure, accession number |
+| [Radiology Imaging Study](StructureDefinition-RadiologyImagingStudy.html) | `ImagingStudyEuImaging` | DICOM study metadata, with DICOM tags in the element descriptions |
+| [Radiology Diagnostic Report](StructureDefinition-RadiologyDiagnosticReport.html) | `DiagnosticReportEuImaging` | The radiology report |
+| [Radiological Accession Number](StructureDefinition-RadiologicalAccessionNumber.html) | `AccessionNumberIdentifierEuImaging` | Accession number, issuer identified by ODS code |
+| [UK Imaging Procedure](ValueSet-uk-imaging-procedure.html) (value set) | SNOMED CT UK refset 999001111000000105 | Imaging procedure codes |
+{:.grid}
+
+`DiagnosticReportEuImaging` requires a `CompositionEuImaging` (the
+`composition` extension), so a report conforming to these profiles is also a
+FHIR document. Whether NHS reports, mostly sent today as HL7 v2 ORU with a text
+report, can meet this is **Open**.
+
+### Examples
+
+A staging CT of the thorax, abdomen and pelvis at Manchester University NHS
+Foundation Trust (R0A), for the NW GMSA test patient MANCHESTER Sansa (see the
+[NW GMSA test patients](https://github.com/nw-gmsa/Testing/blob/main/MRN-Mapping.md)).
+Practitioners, identifiers and report text are fictional.
+
+| Example | Profile |
+|---|---|
+| [Radiology Service Request](ServiceRequest-RadiologyServiceRequestExample.html) | Radiology Service Request |
+| [Radiology Imaging Study](ImagingStudy-RadiologyImagingStudyExample.html), with a [WADO-RS Endpoint](Endpoint-EndpointWADORS.html) | Radiology Imaging Study |
+| [Radiology Diagnostic Report](DiagnosticReport-RadiologyDiagnosticReportExample.html) | Radiology Diagnostic Report |
+| [Composition](Composition-RadiologyCompositionExample.html) | `CompositionEuImaging` |
+{:.grid}
+
+The accession number `system` in the examples (`http://example.org/R0A/accession-number`)
+is a placeholder, because the convention is **Open**.
 
 ### References
 
@@ -165,8 +200,9 @@ Selected profiles from `hl7.fhir.eu.imaging` 1.0.0-ballot:
 
 The package is a ballot version and depends on `hl7.fhir.eu.base` 2.0.0-ballot,
 `ihe.iti.mhd`, `fhir.dicom` and the R5 cross-version package. The Cancer
-Pathology Report IG uses `hl7.fhir.eu.base` 2.0.1. Whether to take a dependency
-on the imaging package, and which version, is **Open**.
+Pathology Report IG uses `hl7.fhir.eu.base` 2.0.1. This guide depends on
+`hl7.fhir.eu.imaging` 1.0.0-ballot, and will move to the published version when
+it is available.
 
 ### Comparison with the Pathology Report
 
