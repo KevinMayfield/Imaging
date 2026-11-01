@@ -2,14 +2,14 @@
 <b>Proof of concept.</b> This implementation guide is a demonstration only. It is
 <b>not</b> an authoritative source, is not endorsed by NHS England, IHE or HL7, and
 must not be used for implementation or clinical purposes. It is background for the
-<a href="https://nw-gmsa.github.io/CancerPathologyReport/">Cancer Pathology Report</a>
+<a href="https://kevinmayfield.github.io/CancerPathologyReport/">Cancer Pathology Report</a>
 proof of concept.
 </div>
 
 ### Aim
 
 This guide gives **background on imaging** in NHS trusts for the
-[Cancer Pathology Report](https://nw-gmsa.github.io/CancerPathologyReport/) IG.
+[Cancer Pathology Report](https://kevinmayfield.github.io/CancerPathologyReport/) IG.
 That IG covers the pathology report; imaging has its own systems, workflows and
 reports, and it meets pathology at several points on the cancer pathway - see
 [Imaging in the Cancer Pathway](CancerPathway.html).
@@ -32,7 +32,7 @@ profiles, for the radiology request, study and report, are derived from
 - [Enterprise Imaging](EnterpriseImaging.html) - what the term covers, the
   typical system landscape (RIS, PACS, VNA, viewer, specialist reporting systems)
   and how it relates to the EPR
-- [Radiology](Radiology.html) - RIS and PACS, IHE Radiology Scheduled Workflow,
+- [Radiology Scheduled Workflow (SWF.b)](SWF.html) - RIS and PACS, IHE Radiology Scheduled Workflow,
   NICIP and SNOMED CT procedure codes, the Diagnostic Imaging Dataset
 - [Endoscopy](Endoscopy.html) - endoscopy reporting systems, the National
   Endoscopy Database, IHE Endoscopy profiles, and endoscopy as a specimen
@@ -71,8 +71,8 @@ profiles, for the radiology request, study and report, are derived from
 
 ### Related
 
-- [Cancer Pathology Report](https://nw-gmsa.github.io/CancerPathologyReport/) -
+- [Cancer Pathology Report](https://kevinmayfield.github.io/CancerPathologyReport/) -
   the IG this guide supports; its
-  [Imaging and Radiology](https://nw-gmsa.github.io/CancerPathologyReport/Imaging.html)
+  [Imaging and Radiology](https://kevinmayfield.github.io/CancerPathologyReport/Imaging.html)
   page covers where imaging meets the pathology report
 - [NHS North West Genomics FHIR IG](https://nw-gmsa.github.io/en/)

@@ -2,7 +2,7 @@
 <b>Proof of concept.</b> This implementation guide is a demonstration only. It is
 <b>not</b> an authoritative source, is not endorsed by NHS England, IHE or HL7, and
 must not be used for implementation or clinical purposes. It is background for the
-<a href="https://nw-gmsa.github.io/CancerPathologyReport/">Cancer Pathology Report</a>
+<a href="https://kevinmayfield.github.io/CancerPathologyReport/">Cancer Pathology Report</a>
 proof of concept.
 </div>
 
@@ -31,7 +31,7 @@ clinical imaging and multimedia content to enhance the patient record.
 
 | Specialty | Typical images | Typical reporting / workflow system | See |
 |---|---|---|---|
-| Radiology | X-ray, CT, MRI, ultrasound, mammography, nuclear medicine, PET-CT, interventional radiology | Radiology Information System (RIS) | [Radiology](Radiology.html) |
+| Radiology | X-ray, CT, MRI, ultrasound, mammography, nuclear medicine, PET-CT, interventional radiology | Radiology Information System (RIS) | [Radiology Scheduled Workflow (SWF.b)](SWF.html) |
 | Endoscopy | Still images and video from the endoscope | Endoscopy Reporting System (ERS) | [Endoscopy](Endoscopy.html) |
 | Cardiology | Echocardiography, cardiac catheterisation, ECG | Cardiology information system / cardiovascular PACS | [Other Imaging Specialties](OtherImaging.html) |
 | Ophthalmology | Retinal photography, OCT | Ophthalmology EPR or image management system | [Other Imaging Specialties](OtherImaging.html) |
@@ -108,6 +108,6 @@ separate; this is a local decision - **To confirm** for each trust.
 
 Pathology is part of **diagnostics** but is not usually counted as imaging, apart
 from **digital pathology**. The pathology report is covered by the
-[Cancer Pathology Report](https://nw-gmsa.github.io/CancerPathologyReport/) IG.
+[Cancer Pathology Report](https://kevinmayfield.github.io/CancerPathologyReport/) IG.
 Imaging and pathology meet in the cancer pathway - see
 [Imaging in the Cancer Pathway](CancerPathway.html).

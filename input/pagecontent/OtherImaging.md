@@ -2,7 +2,7 @@
 <b>Proof of concept.</b> This implementation guide is a demonstration only. It is
 <b>not</b> an authoritative source, is not endorsed by NHS England, IHE or HL7, and
 must not be used for implementation or clinical purposes. It is background for the
-<a href="https://nw-gmsa.github.io/CancerPathologyReport/">Cancer Pathology Report</a>
+<a href="https://kevinmayfield.github.io/CancerPathologyReport/">Cancer Pathology Report</a>
 proof of concept.
 </div>
 
@@ -36,6 +36,6 @@ it changes how slides are viewed, not the content of the pathology report.
 - Images are stored as **DICOM WSI** (modality `SM`) where the scanner and archive
   support it, and can share the trust's VNA.
 
-In the [Cancer Pathology Report](https://nw-gmsa.github.io/CancerPathologyReport/)
+In the [Cancer Pathology Report](https://kevinmayfield.github.io/CancerPathologyReport/)
 IG the slides and blocks are derived specimens; the report itself does not
 change with digital pathology.

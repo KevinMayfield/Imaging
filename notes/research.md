@@ -25,6 +25,8 @@ Dates are when the source was checked.
 | 13 | DiagnosticReportEuImaging requires a Composition (FHIR document). Can NHS RIS reports (HL7 v2 ORU, text) meet this, or is a lighter report profile needed? | IG authors | Open |
 | 14 | How to distinguish primary and secondary reporters in DiagnosticReport.resultsInterpreter | IG authors | Open |
 | 16 | Create an NW core package for shared identifier conventions, replacing the copies in this guide (see Duplication below) | NW GMSA IG authors | Open |
+| 17 | NW GMSA links DiagnosticReport to DocumentReference with the R5 DiagnosticReport.supportingInfo extension pinned to version 1.0.2 (retired); the current version (xver 0.1.0) only allows Procedure, Observation, DiagnosticReport or Citation targets. Alternative link for both IGs? | NW GMSA IG authors | Open |
+| 18 | ORC-1 / ORC-5 to ServiceRequest.status mapping for RAD-2 / RAD-3; whether NHS RIS use the accession number as the filler order number (ORC-3) | IG authors / RIS suppliers | Open |
 | 15 | tx.fhir.org has the SNOMED CT UK Edition (2023-04-12) but cannot expand refset 999001111000000105, so the UK Imaging Procedure value set and its bindings are not validated. Use the NHS England Terminology Server? | IG authors | Open |
 
 ## Sources Checked (2026-11-01)
@@ -79,6 +81,9 @@ depending on another IG:
 |---|---|---|
 | NamingSystems: NHS number, ODS organisation code, ODS site code, GMC number, GMP number | NW GMSA `../FHIRGenomics/input/resources/*.json` - themselves copies of HL7 UK Core NamingSystems (publisher "HL7 UK") | `input/resources/` (unchanged) |
 | Patient profile (NW core Patient, on patient-eu-core) | NW GMSA `../FHIRGenomics/input/fsh/Patient.fsh` | `input/fsh/Core/Patient.fsh` (UK Core EthnicCategory extension removed) |
+| NICIP CodeSystem (4833 codes, canonical kept) and NICIP value set; procedure code slicing pattern | Interweave FHIR IG `CodeSystem-Interweave-NICIP` / `ValueSet-Interweave-NICIP` / `Interweave-DiagnosticReport` (fhir.interweavedigital.com/R4, CodeSystem v0.0.1, 2024-07-15) | `input/resources/CodeSystem-Interweave-NICIP.json` (unchanged; allowed via `special-url`), `input/fsh/Terminology/Imaging.fsh` |
+| DocumentReference and Binary profiles; DocumentEntryType, DocumentEntryClass, FacilityType, Specialty value sets (for the OBX type ED convention) | NW GMSA `../FHIRGenomics/input/fsh/DocumentReference.fsh`, `Binary.fsh`, `Termininology/ValueSet` | `input/fsh/Core/DocumentReference.fsh` (NW Encounter profile constraint and Obligation markers removed) |
+| Expansion parameters (SNOMED CT UK Edition) | NW GMSA `input/fsh/Parameters/exp-params.fsh` and `path-expansion-params` | `input/fsh/Parameters/exp-params.fsh`, `sushi-config.yaml` |
 | NWAttachment data type (report referenced by `url`, not embedded in `data`) and the DocumentEntryMimeType value set | NW GMSA `../FHIRGenomics/input/fsh/DataTypes/Attachment.fsh`, `Termininology/ValueSet/DocumentEntry.mimeType.fsh` | `input/fsh/DataTypes/NWDataTypes.fsh` (unchanged) |
 | Identifier data types: CorrelationIdentifier, NHSIdentifier, MedicalRecordNumber, PatientIdentifier, OrganisationCode, OrganisationSiteIdentifier, PractitionerIdentifier, ReportIdentifier, OrderIdentifier, VisitNumber, and the NWIdentifierType, UKNationalHealthIdentifiers, PractitionerIdentifiers value sets and their code systems | NW GMSA `../FHIRGenomics/input/fsh/DataTypes` and `Termininology` | `input/fsh/DataTypes/NWDataTypes.fsh` (UK Core NHS number verification extension and NW GMSA ZCID code removed; CodeSystem retitled "UK National Health Identifier Systems" because its title duplicated the value set's - an IG Publisher error, so the NW GMSA source likely has the same error) |
 {:.grid}
@@ -98,3 +103,20 @@ https://nw-gmsa.github.io/package.tgz, not packages.fhir.org.
 
 Still missing from all copies: an HCPC number NamingSystem
 (`https://fhir.hl7.org.uk/Id/hcpc-number`), needed for radiographers.
+
+## IHE SWF.b and HL7 v2.5.1 (2026-11-01)
+
+- IHE RAD SWF.b supplement Rev. 1.7 Trial Implementation (2019-08-09) makes HL7
+  v2.5.1 mandatory for the HL7 transactions.
+- IHE RAD TF-2 Rev. 23.0 Final Text (2025-08-08): RAD-2 and RAD-3 use
+  OMG^O19^OMG_O19 / ORG^O20^ORG_O20 (RAD-2 ORC-1 NW, XO, CA, optional PA/CH;
+  RAD-3 ORC-1 SN, XX, SC, OC, ORG NA); RAD-4 and RAD-13 use OMI^O23^OMI_O23 with
+  the IPC segment (IPC-1 accession identifier with assigning authority, max 16
+  characters; IPC-2 requested procedure ID; IPC-3 Study Instance UID; IPC-4
+  scheduled procedure step ID; IPC-5 modality).
+- Report delivery is not in SWF.b. IHE RAD Results Distribution (RD) supplement
+  Rev. 1.2 Trial Implementation (2019-08-09) defines Send Imaging Result
+  [RAD-128]: HL7 v2.5.1 ORU^R01^ORU_R01, actors Report Creator, Report Manager,
+  Report Consumer; payload OBX-2 TX (text), ED (Base64 PDF, PDF Option) or ED
+  (CDA, CDA Option). The older RAD-28 Structured Report Export (SINR) is ORU in
+  HL7 v2.3.1 with ASCII text. The guide uses RAD-128.

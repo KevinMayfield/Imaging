@@ -1,4 +1,22 @@
 Alias: $v2-0203 = http://terminology.hl7.org/CodeSystem/v2-0203
+Alias: $sct = http://snomed.info/sct
+Alias: $nicip = https://fhir.interweavedigital.nhs.uk/CodeSystem/Interweave-NICIP
+
+// Procedure code slicing, following the Interweave DiagnosticReport profile
+// (https://fhir.interweavedigital.com/R4/StructureDefinition-Interweave-DiagnosticReport.html)
+
+RuleSet: CodingSlicedBySystem
+* code.coding ^slicing.discriminator.type = #value
+* code.coding ^slicing.discriminator.path = "system"
+* code.coding ^slicing.rules = #open
+* code.coding ^slicing.ordered = false
+
+RuleSet: NICIPCoding(slice)
+* code.coding[{slice}].system = $nicip
+* code.coding[{slice}].code 1..1
+* code.coding[{slice}].display 1..1
+* code.coding[{slice}] from InterweaveNICIP (required)
+* code.coding[{slice}] ^short = "National Interim Clinical Imaging Procedure (NICIP) code"
 
 // Identifiers
 
@@ -48,9 +66,15 @@ the radiological accession number.
 * identifier ^short = "Placer order number, and the accession number once the RIS has accepted the request"
 * identifier[accessionNumber] only RadiologicalAccessionNumber
 * identifier[accessionNumber] MS
-* code MS
-* code ^short = "Imaging procedure requested - NICIP code and its SNOMED CT map"
-* code from UKImagingProcedure (preferred)
+* code 1..1 MS
+* code ^short = "Imaging procedure requested - NICIP code, with its SNOMED CT map"
+* insert CodingSlicedBySystem
+* code.coding contains nicip 1..1 MS and snomedCT 0..1 MS
+* insert NICIPCoding(nicip)
+* code.coding[snomedCT].system = $sct
+* code.coding[snomedCT].code 1..1
+* code.coding[snomedCT] from UKImagingProcedure (extensible)
+* code.coding[snomedCT] ^short = "SNOMED CT imaging procedure (UK diagnostic imaging procedure refset)"
 * subject MS
 * subject only Reference(Patient)
 * reasonCode MS
@@ -113,11 +137,10 @@ the report is also a FHIR document (`CompositionEuImaging`, via the
 [Radiology Report](StructureDefinition-RadiologyReport.html) data items, which
 follow the Royal College of Radiologists' report data for reporting networks.
 
-The examination (NICIP / SNOMED CT) is carried on the request
-([Radiology Service Request](StructureDefinition-RadiologyServiceRequest.html)
-`code`) and the study ([Radiology Imaging Study](StructureDefinition-RadiologyImagingStudy.html)
-`procedureCode`). `DiagnosticReport.code` is the report type, as in HL7 Europe
-Imaging.
+Following the Interweave DiagnosticReport profile, `DiagnosticReport.code` carries
+the NICIP code of the examination (HL7 v2 OBR-4) and/or a LOINC report type. The
+request ([Radiology Service Request](StructureDefinition-RadiologyServiceRequest.html))
+must carry the NICIP code.
 """
 * ^experimental = true
 * identifier MS
@@ -132,7 +155,13 @@ Imaging.
 * category[diagnostic-service] MS
 * category[diagnostic-service] ^short = "Diagnostic service section, for example RAD (HL7 v2 OBR-24)"
 * code MS
-* code ^short = "Report type, for example LOINC 18748-4 Diagnostic imaging study"
+* code ^short = "Examination reported (NICIP, HL7 v2 OBR-4) and/or report type (LOINC)"
+* insert CodingSlicedBySystem
+* code.coding contains nicip 0..1 MS and loinc 0..1 MS
+* insert NICIPCoding(nicip)
+* code.coding[loinc].system = "http://loinc.org"
+* code.coding[loinc].code 1..1
+* code.coding[loinc] ^short = "LOINC report type, for example 18748-4 Diagnostic imaging study"
 * subject MS
 * subject only Reference(Patient)
 * subject ^short = "Patient, identified by NHS number"

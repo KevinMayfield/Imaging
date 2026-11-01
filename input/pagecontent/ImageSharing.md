@@ -2,7 +2,7 @@
 <b>Proof of concept.</b> This implementation guide is a demonstration only. It is
 <b>not</b> an authoritative source, is not endorsed by NHS England, IHE or HL7, and
 must not be used for implementation or clinical purposes. It is background for the
-<a href="https://nw-gmsa.github.io/CancerPathologyReport/">Cancer Pathology Report</a>
+<a href="https://kevinmayfield.github.io/CancerPathologyReport/">Cancer Pathology Report</a>
 proof of concept.
 </div>
 

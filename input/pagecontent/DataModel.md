@@ -2,7 +2,7 @@
 <b>Proof of concept.</b> This implementation guide is a demonstration only. It is
 <b>not</b> an authoritative source, is not endorsed by NHS England, IHE or HL7, and
 must not be used for implementation or clinical purposes. It is background for the
-<a href="https://nw-gmsa.github.io/CancerPathologyReport/">Cancer Pathology Report</a>
+<a href="https://kevinmayfield.github.io/CancerPathologyReport/">Cancer Pathology Report</a>
 proof of concept.
 </div>
 
@@ -18,10 +18,11 @@ which the Cancer Pathology Report IG is built on.
 |---|---|---|
 | [Radiology Report](StructureDefinition-RadiologyReport.html) (logical model) | RCR report data items | Content of a radiology report, with indicative HL7 v2, DICOM and FHIR mappings |
 | [Patient](StructureDefinition-Patient.html) | `patient-eu-core` | NW core Patient (copied from the [NW GMSA FHIR IG](https://nw-gmsa.github.io/en/)) - NHS number and MRN identifiers. All this guide's profiles reference it |
-| [Radiology Service Request](StructureDefinition-RadiologyServiceRequest.html) | `ServiceRequestOrderEuImaging` | Imaging request: NICIP / SNOMED CT procedure, accession number |
+| [Radiology Service Request](StructureDefinition-RadiologyServiceRequest.html) | `ServiceRequestOrderEuImaging` | Imaging request: NICIP code (required) with SNOMED CT map, accession number |
 | [Radiology Imaging Study](StructureDefinition-RadiologyImagingStudy.html) | `ImagingStudyEuImaging` | DICOM study metadata, with DICOM tags in the element descriptions |
-| [Radiology Diagnostic Report](StructureDefinition-RadiologyDiagnosticReport.html) | `DiagnosticReportEuImaging` | The radiology report |
+| [Radiology Diagnostic Report](StructureDefinition-RadiologyDiagnosticReport.html) | `DiagnosticReportEuImaging` | The radiology report; `code` carries the NICIP examination code and/or LOINC report type, as in Interweave |
 | [Radiological Accession Number](StructureDefinition-RadiologicalAccessionNumber.html) | `AccessionNumberIdentifierEuImaging` | Accession number, issuer identified by ODS code |
+| [NICIP (Interweave)](ValueSet-Interweave-NICIP.html) (value set) | Interweave NICIP CodeSystem | NICIP codes for `ServiceRequest.code` and `DiagnosticReport.code` |
 | [UK Imaging Procedure](ValueSet-uk-imaging-procedure.html) (value set) | SNOMED CT UK refset 999001111000000105 | Imaging procedure codes |
 {:.grid}
 

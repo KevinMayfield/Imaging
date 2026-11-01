@@ -3,7 +3,7 @@
 Proof-of-concept FHIR Implementation Guide giving background on enterprise
 imaging (radiology, endoscopy and the other imaging specialties) in NHS trusts.
 Published at https://kevinmayfield.github.io/Imaging/. Supports the
-[Cancer Pathology Report](https://github.com/nw-gmsa/CancerPathologyReport) IG
+[Cancer Pathology Report](https://github.com/KevinMayfield/CancerPathologyReport) IG
 (`../CancerPathologyReport`), whose Imaging page covers where imaging meets the
 pathology report.
 
@@ -22,9 +22,10 @@ pathology report.
 ## Layout
 
 - Pages: `input/pagecontent/`, organised as IHE volumes - Volume 1 Analysis and
-  Design (Enterprise Imaging, Radiology, Endoscopy, Other Imaging Specialties,
-  Image Sharing, Imaging in the Cancer Pathway), Volume 3 Data Models (FHIR
-  Resources, Terminology).
+  Design (Enterprise Imaging, Radiology Scheduled Workflow (SWF.b) `SWF.md`, Endoscopy, Other Imaging Specialties,
+  Image Sharing, Imaging in the Cancer Pathway), Volume 2 Interactions (IHE
+  SWF.b transactions and Send Imaging Result [RAD-128], HL7 v2.5.1 as in NW GMSA), Volume 3
+  Data Models (FHIR Resources, Terminology).
 - FSH: `input/fsh/` - logical model at the top level, `Profiles/`, `Terminology/`.
 - A new page must be added to both `pages:` and `menu:` in `sushi-config.yaml`.
 - Research notes and open questions that should not be published:

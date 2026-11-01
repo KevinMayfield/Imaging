@@ -31,6 +31,10 @@ parameters:
   apply-jurisdiction: 'true'
   apply-publisher: 'true'
   apply-version: 'true'
+  # SNOMED CT UK Edition for expansions/validation (same as the NW GMSA IG)
+  path-expansion-params: '../resources/Parameters-exp-params.json'
+  # NICIP CodeSystem copied from Interweave, keeping its canonical URL
+  special-url: https://fhir.interweavedigital.nhs.uk/CodeSystem/Interweave-NICIP
 
 pages:
   index.md:
@@ -39,8 +43,8 @@ pages:
   EnterpriseImaging.md:
     title: Enterprise Imaging
     generation: markdown
-  Radiology.md:
-    title: Radiology
+  SWF.md:
+    title: Radiology Scheduled Workflow (SWF.b)
     generation: markdown
   Endoscopy.md:
     title: Endoscopy
@@ -54,6 +58,18 @@ pages:
   CancerPathway.md:
     title: Imaging in the Cancer Pathway
     generation: markdown
+  RAD-2.md:
+    title: Placer Order Management [RAD-2]
+    generation: markdown
+  RAD-3.md:
+    title: Filler Order Management [RAD-3]
+    generation: markdown
+  RAD-4.md:
+    title: Procedure Scheduled [RAD-4] and Procedure Update [RAD-13]
+    generation: markdown
+  RAD-128.md:
+    title: Send Imaging Result [RAD-128]
+    generation: markdown
   DataModel.md:
     title: FHIR Resources
     generation: markdown
@@ -65,11 +81,16 @@ menu:
   Home: index.html
   Analysis and Design (Volume 1):
     Enterprise Imaging: EnterpriseImaging.html
-    Radiology: Radiology.html
+    Radiology Scheduled Workflow (SWF.b): SWF.html
     Endoscopy: Endoscopy.html
     Other Imaging Specialties: OtherImaging.html
     Image Sharing: ImageSharing.html
     Imaging in the Cancer Pathway: CancerPathway.html
+  Interactions (Volume 2):
+    Placer Order Management [RAD-2]: RAD-2.html
+    Filler Order Management [RAD-3]: RAD-3.html
+    Procedure Scheduled [RAD-4] / Update [RAD-13]: RAD-4.html
+    Send Imaging Result [RAD-128]: RAD-128.html
   Data Models (Volume 3):
     FHIR Resources: DataModel.html
     Logical Model: StructureDefinition-RadiologyReport.html

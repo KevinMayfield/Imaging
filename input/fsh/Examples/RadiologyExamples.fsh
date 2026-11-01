@@ -91,7 +91,8 @@ Usage:          #example
 * identifier[accessionNumber] insert AccessionNumberExample
 * status = #completed
 * intent = #order
-* code = $sct#433761009 "CT of thorax, abdomen and pelvis with contrast"
+* code.coding[nicip] = https://fhir.interweavedigital.nhs.uk/CodeSystem/Interweave-NICIP#CCHAPC "CT Thorax abdomen pelvis with contrast"
+* code.coding[snomedCT] = $sct#433761009 "CT of thorax, abdomen and pelvis with contrast"
 * subject = Reference(PatientManchester)
 * authoredOn = "2026-10-26T10:15:00Z"
 * reasonCode.text = "Staging of suspected colorectal cancer"
@@ -153,7 +154,8 @@ Usage:          #example
 * basedOn[ServiceRequestOrderEuImagingaccession].identifier insert AccessionNumberExample
 * status = #final
 * category[diagnostic-service] = $v2-0074#RAD "Radiology"
-* code = $loinc#18748-4 "Diagnostic imaging study"
+* code.coding[nicip] = https://fhir.interweavedigital.nhs.uk/CodeSystem/Interweave-NICIP#CCHAPC "CT Thorax abdomen pelvis with contrast"
+* code.coding[loinc] = $loinc#18748-4 "Diagnostic imaging study"
 * subject = Reference(PatientManchester)
 * effectiveDateTime = "2026-10-28T14:20:00Z"
 * issued = "2026-10-29T09:45:00Z"
@@ -224,3 +226,30 @@ Description:    "The issued report as a PDF, referenced from DiagnosticReport.pr
 Usage:          #example
 * contentType = #application/pdf
 * data = "JVBERi0xLjQKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAwIFIgPj4KZW5kb2JqCjIgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzIC9LaWRzIFszIDAgUl0gL0NvdW50IDEgPj4KZW5kb2JqCjMgMCBvYmoKPDwgL1R5cGUgL1BhZ2UgL1BhcmVudCAyIDAgUiAvTWVkaWFCb3ggWzAgMCA1OTUgODQyXSAvQ29udGVudHMgNSAwIFIgL1Jlc291cmNlcyA8PCAvRm9udCA8PCAvRjEgNCAwIFIgPj4gPj4gPj4KZW5kb2JqCjQgMCBvYmoKPDwgL1R5cGUgL0ZvbnQgL1N1YnR5cGUgL1R5cGUxIC9CYXNlRm9udCAvSGVsdmV0aWNhID4+CmVuZG9iago1IDAgb2JqCjw8IC9MZW5ndGggNjk4ID4+CnN0cmVhbQpCVCAvRjEgMTAgVGYgNTAgNzkwIFRkIDE0IFRMCihDVCBUSE9SQVgsIEFCRE9NRU4gQU5EIFBFTFZJUyBXSVRIIENPTlRSQVNUKSBUaiBUKgooUGF0aWVudDogTUFOQ0hFU1RFUiBTYW5zYSAgTkhTIG51bWJlciA5NzMgNzM4IDMxOTIgXChOVyBHTVNBIHRlc3QgcGF0aWVudFwpKSBUaiBUKgooQWNjZXNzaW9uIG51bWJlciBSQUQyNjExMDAwMSAgTWFuY2hlc3RlciBVbml2ZXJzaXR5IE5IUyBGb3VuZGF0aW9uIFRydXN0KSBUaiBUKgooKSBUaiBUKgooQ2xpbmljYWwgaGlzdG9yeTogU3RhZ2luZyBvZiBzdXNwZWN0ZWQgY29sb3JlY3RhbCBjYW5jZXIuKSBUaiBUKgooVGVjaG5pcXVlOiBQb3J0YWwgdmVub3VzIHBoYXNlIENUIG9mIHRoZSB0aG9yYXgsIGFiZG9tZW4gYW5kIHBlbHZpcykgVGogVCoKKGZvbGxvd2luZyBpbnRyYXZlbm91cyBjb250cmFzdC4pIFRqIFQqCihGaW5kaW5nczogRXhhbXBsZSBmaW5kaW5ncyBmb3IgYSBwcm9vZi1vZi1jb25jZXB0IHJlcG9ydC4pIFRqIFQqCihOb3QgYSByZWFsIHBhdGllbnQgb3IgYSByZWFsIHJlcG9ydC4pIFRqIFQqCihDb25jbHVzaW9uOiBFeGFtcGxlIGNvbmNsdXNpb24gZm9yIGEgcHJvb2Ytb2YtY29uY2VwdCByZXBvcnQuKSBUaiBUKgooKSBUaiBUKgooUmVwb3J0ZWQgYnkgRHIgUm9iaW4gRVhBTVBMRSBcKGZpY3Rpb25hbFwpLCAyOSBPY3RvYmVyIDIwMjYpIFRqIFQqCkVUCmVuZHN0cmVhbQplbmRvYmoKeHJlZgowIDYKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDA5IDAwMDAwIG4gCjAwMDAwMDAwNTggMDAwMDAgbiAKMDAwMDAwMDExNSAwMDAwMCBuIAowMDAwMDAwMjQxIDAwMDAwIG4gCjAwMDAwMDAzMTEgMDAwMDAgbiAKdHJhaWxlcgo8PCAvU2l6ZSA2IC9Sb290IDEgMCBSID4+CnN0YXJ0eHJlZgoxMDU5CiUlRU9GCg=="
+
+// HL7 v2 ORU^R01 OBX type ED (embedded PDF), converted following the NW GMSA
+// convention: OBX-5 -> Binary (RadiologyReportPDF), OBX -> DocumentReference
+
+Instance:       RadiologyReportDocumentReference
+InstanceOf:     DocumentReference
+Title:          "DocumentReference - CT thorax, abdomen and pelvis report (PDF)"
+Description:    "The report PDF, converted from an HL7 v2 ORU^R01 OBX of type ED: OBX-5 becomes the Binary and the OBX becomes this DocumentReference, which points to the DiagnosticReport."
+Usage:          #example
+* identifier.system = "http://example.org/R0A/report-identifier"
+* identifier.value = "RPT-26-0005678-PDF"
+* identifier.assigner.identifier.value = "R0A"
+* status = #current
+* type = $sct#4201000179104 "Imaging report"
+* category = $sct#721981007 "Diagnostic studies report"
+* subject = Reference(PatientManchester)
+* date = "2026-10-29T09:45:00Z"
+* author[0] = Reference(PractitionerRadiologist)
+* author[1] = Reference(OrganizationMFT)
+* custodian = Reference(OrganizationMFT)
+* content.attachment.contentType = #application/pdf
+* content.attachment.language = #en-GB
+* content.attachment.url = "Binary/RadiologyReportPDF"
+* content.attachment.title = "CT thorax, abdomen and pelvis with contrast"
+* content.attachment.creation = "2026-10-29T09:45:00Z"
+* context.period.start = "2026-10-28T14:02:00Z"
+* context.related[DiagnosticReport] = Reference(RadiologyDiagnosticReportExample)

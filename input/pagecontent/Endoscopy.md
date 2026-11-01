@@ -2,7 +2,7 @@
 <b>Proof of concept.</b> This implementation guide is a demonstration only. It is
 <b>not</b> an authoritative source, is not endorsed by NHS England, IHE or HL7, and
 must not be used for implementation or clinical purposes. It is background for the
-<a href="https://nw-gmsa.github.io/CancerPathologyReport/">Cancer Pathology Report</a>
+<a href="https://kevinmayfield.github.io/CancerPathologyReport/">Cancer Pathology Report</a>
 proof of concept.
 </div>
 
@@ -63,9 +63,9 @@ NED upload and JAG accreditation are related but separate processes.
 
 The IHE **Endoscopy Report and Pathology Order (ERPO)** profile covers creating
 the endoscopy report and placing **pathology orders** from it. In the
-[Cancer Pathology Report](https://nw-gmsa.github.io/CancerPathologyReport/) IG
+[Cancer Pathology Report](https://kevinmayfield.github.io/CancerPathologyReport/) IG
 the endoscopist is the **specimen collector**, and the pathology request is a
-[Placer Order Management [LAB-1]](https://nw-gmsa.github.io/CancerPathologyReport/LAB-1.html)
+[Placer Order Management [LAB-1]](https://kevinmayfield.github.io/CancerPathologyReport/LAB-1.html)
 interaction. Whether the request is placed from the ERS or from the EPR is a
 local decision - **To confirm** for each trust.
 

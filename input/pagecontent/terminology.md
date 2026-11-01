@@ -2,7 +2,7 @@
 <b>Proof of concept.</b> This implementation guide is a demonstration only. It is
 <b>not</b> an authoritative source, is not endorsed by NHS England, IHE or HL7, and
 must not be used for implementation or clinical purposes. It is background for the
-<a href="https://nw-gmsa.github.io/CancerPathologyReport/">Cancer Pathology Report</a>
+<a href="https://kevinmayfield.github.io/CancerPathologyReport/">Cancer Pathology Report</a>
 proof of concept.
 </div>
 
@@ -14,7 +14,7 @@ sets defined by this guide are listed on the [Artifacts](artifacts.html) page.
 
 | Code system | Use | Notes |
 |---|---|---|
-| [NICIP](https://digital.nhs.uk/services/terminology-and-classifications/national-interim-clinical-imaging-procedure-nicip-code-set) | Radiology procedure (modality and body site) | National standard for imaging department systems in England; distributed through TRUD; used by the Diagnostic Imaging Dataset and COSD (CR1610). No FHIR system URI is defined - **Open** |
+| [NICIP](https://digital.nhs.uk/services/terminology-and-classifications/national-interim-clinical-imaging-procedure-nicip-code-set) | Radiology procedure (modality and body site) | National standard for imaging department systems in England; distributed through TRUD; used by the Diagnostic Imaging Dataset and COSD (CR1610). This guide uses the Interweave NICIP CodeSystem `https://fhir.interweavedigital.nhs.uk/CodeSystem/Interweave-NICIP` (copied, 4833 codes) and value set [NICIP (Interweave)](ValueSet-Interweave-NICIP.html), following the [Interweave FHIR IG](https://fhir.interweavedigital.com/R4/StructureDefinition-Interweave-DiagnosticReport.html). Required on `ServiceRequest.code`; used on `DiagnosticReport.code` |
 | SNOMED CT (`http://snomed.info/sct`) | Imaging procedure | NICIP codes are mapped to SNOMED CT (UK Diagnostic Imaging Procedure subset); COSD CR3110 |
 {:.grid}
 
