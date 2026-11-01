@@ -21,6 +21,8 @@ dependencies:
   # versions used by hl7.fhir.eu.imaging, declared so SUSHI can resolve them
   hl7.fhir.eu.base: 2.0.0-ballot
   hl7.fhir.eu.extensions.r4: 1.2.0
+  # R5 cross-version extensions used by EU Imaging; required by SUSHI 3.21+
+  hl7.fhir.uv.xver-r5.r4: 0.1.0
 
 FSHOnly: false
 parameters:
