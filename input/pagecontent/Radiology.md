@@ -58,14 +58,16 @@ Identifiers that tie the workflow together:
 
 | Identifier | Meaning |
 |---|---|
-| **Accession number** | Identifies the imaging request / procedure in the RIS; shared by the order, the DICOM study and the report |
+| **Accession number** | Identifies the imaging request / procedure in the RIS; shared by the order, the DICOM study (0008,0050) and the report. NHS Data Dictionary RADIOLOGICAL ACCESSION NUMBER; unique only within the issuing RIS |
 | **Study Instance UID** | DICOM identifier of the imaging study |
 | **Placer order number** | The EPR's identifier for the request |
 {:.grid}
 
 In FHIR these appear as `ServiceRequest.identifier` (placer and accession),
 `ImagingStudy.identifier` (Study Instance UID and accession) and
-`DiagnosticReport.identifier` - see [FHIR Resources](DataModel.html).
+`DiagnosticReport.identifier` - see [FHIR Resources](DataModel.html), which
+also lists the report data items described by the Royal College of
+Radiologists, mapped to FHIR, HL7 v2 and DICOM.
 
 ### Procedure Codes
 

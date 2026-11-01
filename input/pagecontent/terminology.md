@@ -22,6 +22,15 @@ guide defines no value sets yet.
 |---|---|---|
 | 363679005 | Imaging | Top-level imaging procedure concept |
 | 423827005 | Endoscopy | Top-level endoscopy procedure concept |
+| 363680008 | Radiographic imaging procedure | Radiology procedures |
+| 999001111000000105 | United Kingdom diagnostic imaging procedure simple reference set | UK Edition refset of the SNOMED CT procedures that NICIP codes map to; a candidate value set for `ServiceRequest.code` and `ImagingStudy.procedureCode` |
+{:.grid}
+
+### Document Type
+
+| SNOMED CT | Display | Use |
+|---|---|---|
+| 4201000179104 | Imaging report | Document type for imaging reports, for example `DocumentReference.type`; whether it is in the UK Core document type value set is **To confirm** |
 {:.grid}
 
 ### Report Type

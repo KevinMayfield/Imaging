@@ -21,7 +21,7 @@ cancer MDT. Images and reports then need to be shared between organisations.
 | Approach | How it works | Standards |
 |---|---|---|
 | **Shared archive or PACS** | Organisations in an imaging network share one PACS / VNA, or federate their archives | DICOM, DICOMweb |
-| **Point-to-point transfer** | Images are pushed from one organisation's PACS to another's, for example for a referral | DICOM |
+| **Point-to-point transfer** | Images are pushed from one organisation's PACS to another's, for example for a referral. In England this has often been done through the Image Exchange Portal (IEP) | DICOM |
 | **Registry and repository (document sharing)** | Each organisation keeps its own images; a registry indexes them and a manifest points to where they are | IHE XDS-I.b, XCA-I, MADO |
 | **National registry** | NHS England National Imaging Registry indexes imaging held by organisations in England | FHIR, IHE XCA/XDS, DICOMweb |
 {:.grid}
@@ -48,6 +48,15 @@ sequenceDiagram
     MDT ->> SRC: Retrieve report and images (via NIR)
     SRC -->> MDT: Report, images
 ```
+
+Images are retrieved with DICOMweb
+[WADO-RS](https://www.dicomstandard.org/using/dicomweb/retrieve-wado-rs-and-wado-uri)
+(IHE RAD WADO-RS Retrieve [RAD-107]). A DICOM Key Object Selection (KOS)
+document can act as a manifest listing the instances in a study. Which of these
+the National Imaging Registry uses in production is **To confirm**. The
+document sharing metadata (registry entries) for reports is covered by the NW
+GMSA [DocumentReference](https://nw-gmsa.github.io/en/StructureDefinition-DocumentReference.html)
+profile.
 
 ### Relation to the Cancer Pathway
 

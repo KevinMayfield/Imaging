@@ -43,6 +43,109 @@ erDiagram
 | `DocumentReference` | The report as a document (for example PDF), or a key image | `type`, `content.attachment` |
 {:.grid}
 
+For document sharing metadata (IHE XDS DocumentEntry / MHD) see the NW GMSA
+[DocumentReference](https://nw-gmsa.github.io/en/StructureDefinition-DocumentReference.html)
+profile. It links to the imaging report through `context.related`, and the
+accession number and order identifiers stay on the `DiagnosticReport`.
+
+### Imaging Study and Imaging Report
+
+The [EU eHealth Network guideline on medical imaging studies and reports](https://health.ec.europa.eu/document/download/0079ad26-8f8f-435b-9472-3cd8625f4220_en?filename=ehn_mi_guidelines_en.pdf)
+separates the two:
+
+| Term | Definition (summarised) |
+|---|---|
+| **Imaging study** | A set of objects, including images, made for a specific purpose, usually in response to a request. It does not include the imaging report. Not the same as the FHIR `ImagingStudy` resource, which holds only the study metadata |
+| **Imaging report** | The observations and interpretation of one or more imaging studies: reason for the request, relevant clinical information, modality and procedure, body site, findings, conclusion and advice |
+{:.grid}
+
+### Imaging Report Data Items
+
+The Royal College of Radiologists'
+[Radiology reporting networks: understanding the technical options](https://www.rcr.ac.uk/media/wwtp2mif/rcr-publications_radiology-reporting-networks-understanding-the-technical-options_march-2022.pdf)
+(March 2022; no longer at this address on the RCR website as of November 2026 -
+current status **To confirm**) describes the data a radiology report carries between RIS, PACS
+and reporting networks. An earlier NHS England draft radiology IG, written for
+the National Imaging Registry, mapped these items to FHIR `DiagnosticReport`
+following the [HL7 v2-to-FHIR ORU^R01 mapping](https://build.fhir.org/ig/HL7/v2-to-fhir/ConceptMap-message-oru-r01-to-bundle.html).
+The table below is based on that draft. It has **not** been checked against the
+RCR text (**To confirm**), and the HL7 v2 and DICOM columns are indicative.
+
+| Data item | FHIR DiagnosticReport | HL7 v2 (ORU) | DICOM | NHS Data Dictionary |
+|---|---|---|---|---|
+| Report identifier | `identifier` | OBR-3 Filler Order Number | | |
+| Patient | `subject` (NHS number) | PID-3 Patient Identifier List, PID-5 Patient Name | (0010,0020) Patient ID | NHS NUMBER |
+| Accession number | `basedOn` (ServiceRequest `identifier`) | ORC-3 / OBR-3 Filler Order Number | (0008,0050) Accession Number, (0008,0051) Issuer of Accession Number | RADIOLOGICAL ACCESSION NUMBER |
+| Visit number | `encounter` | PV1-19 Visit Number | | |
+| Examination (NICIP) | `code` | OBR-4 Universal Service Identifier | (0008,1032) Procedure Code Sequence | IMAGING CODE (NICIP) |
+| Diagnostic service section | `category` | OBR-24 Diagnostic Serv Sect ID | | |
+| Examination completed | `effectiveDateTime` or `effectivePeriod` | OBR-7 Observation Date/Time, OBR-8 Observation End Date/Time | | |
+| Final report issued | `issued` | OBR-22 Results Rpt/Status Chng - Date/Time | | |
+| Imaging site | `performer` (Organization, ODS code) | PV1-3 Assigned Patient Location (facility) | (0008,0082) Institution Code Sequence | SITE CODE (OF IMAGING) |
+| Operator (radiographer) | `performer` (Practitioner) | OBR-34 Technician | (0008,1070) Operators' Name, (0008,1072) Operator Identification Sequence | |
+| Primary reporter | `resultsInterpreter` (Practitioner) | OBR-32 Principal Result Interpreter | (0008,1060) Name of Physician(s) Reading Study, (0008,1062) Physician(s) Reading Study Identification Sequence | |
+| Secondary reporter | `resultsInterpreter` (Practitioner) | OBR-33 Assistant Result Interpreter | (0008,1062) | |
+| Report text (narrative, clinical history, radiographer comments) | `presentedForm`, or a FHIR document (`composition`) | OBX-5, NTE-3 | DICOM Structured Report | |
+| Conclusion | `conclusion` | | | **Open** - whether the RCR data set separates it |
+{:.grid}
+
+Notes:
+
+- Practitioners are identified by professional registration number: GMC for
+  radiologists, HCPC for radiographers, NMC for nurses. The NHS Data Dictionary
+  CONSULTANT CODE gives the formats. The draft distinguished the primary and
+  secondary roles with the `performerFunction` extension (v3 ParticipationType
+  `PPRF` / `SPRF`).
+- Imaging site: the NHS Data Dictionary SITE CODE (OF IMAGING) is a site code,
+  not an organisation code. Which to use in `performer` is **Open**.
+- `category` carries the HL7 v2 diagnostic service section (for example `RAD`,
+  see [Terminology](terminology.html)). The DICOM modality, (0008,0060),
+  belongs on `ImagingStudy.modality`.
+- [IHE RAD IMR DiagnosticReport](https://profiles.ihe.net/RAD/IMR/StructureDefinition-imr-diagnosticreport.html)
+  and HL7 Europe `DiagnosticReportEuImaging` should be compared with this list
+  before any profile is written (**Open**).
+
+### Imaging Study Data Items
+
+`ImagingStudy` holds study metadata from the DICOM
+[General Study module](https://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.7.2.html)
+(Part 3, C.7.2.1). Indicative mapping:
+
+| DICOM attribute | Tag | FHIR ImagingStudy |
+|---|---|---|
+| Study Instance UID | (0020,000D) | `identifier` (`urn:dicom:uid`) |
+| Accession Number, Issuer of Accession Number | (0008,0050), (0008,0051) | `identifier` (type `ACSN`), `basedOn` |
+| Study Date, Study Time | (0008,0020), (0008,0030) | `started` |
+| Study Description | (0008,1030) | `description` |
+| Procedure Code Sequence | (0008,1032) | `procedureCode` (NICIP / SNOMED CT) |
+| Referring Physician's Name | (0008,0090) | `referrer` |
+| Name of Physician(s) Reading Study | (0008,1060) | `interpreter` |
+| Reason For Performed Procedure Code Sequence | (0040,1012) | `reasonCode` |
+| Patient ID | (0010,0020) | `subject` |
+| Modality (series) | (0008,0060) | `series.modality` |
+| Series Instance UID | (0020,000E) | `series.uid` |
+| SOP Instance UID | (0008,0018) | `series.instance.uid` |
+{:.grid}
+
+### Accession Number
+
+The accession number links the request, the DICOM study and the report. It is
+defined by the NHS Data Dictionary as
+[RADIOLOGICAL ACCESSION NUMBER](https://www.datadictionary.nhs.uk/data_elements/radiological_accession_number.html).
+Indicative representation:
+
+| Standard | Value | Issuing organisation |
+|---|---|---|
+| DICOM | (0008,0050) Accession Number | (0008,0051) Issuer of Accession Number Sequence |
+| HL7 v2 | CX.1, with CX.5 identifier type `ACSN` | CX.6 assigning facility (ODS code) |
+| FHIR | `Identifier.value`, with `Identifier.type` = `http://terminology.hl7.org/CodeSystem/v2-0203#ACSN` | `Identifier.system` unique to the issuing organisation; `Identifier.assigner` (ODS code) |
+{:.grid}
+
+Accession numbers are only unique within the issuing RIS, so the `system` (or
+issuer) is required when they are shared between organisations. A convention
+for the `system` URI is **Open**. HL7 Europe Imaging Report has an
+`AccessionNumberIdentifierEuImaging` profile (see below).
+
 ### HL7 Europe Imaging Report Profiles
 
 Selected profiles from `hl7.fhir.eu.imaging` 1.0.0-ballot:
