@@ -1,0 +1,68 @@
+# sushi-config.yaml is documented https://fshschool.org/docs/sushi/configuration/
+id: fhir.nwgenomics.nhs.uk.imaging
+canonical: https://fhir.nwgenomics.nhs.uk/Imaging
+version: 0.1.0
+name: EnterpriseImaging
+title: Enterprise Imaging (Proof of Concept)
+description: PROOF OF CONCEPT ONLY - not an authoritative source. Background on enterprise imaging (radiology, endoscopy and the other imaging specialties) in the NHS, for the Cancer Pathology Report IG
+releaseLabel: proof-of-concept
+status: draft
+experimental: true
+publisher:
+  - name: NHS North West Genomics
+  - url: https://www.nwgenomics.nhs.uk/contact-us
+license: CC-BY-4.0
+fhirVersion: 4.0.1
+jurisdiction: urn:iso:std:iso:3166#GB "United Kingdom of Great Britain and Northern Ireland"
+copyrightYear: 2026+
+
+FSHOnly: false
+parameters:
+  shownav: true
+  apply-contact: 'true'
+  apply-jurisdiction: 'true'
+  apply-publisher: 'true'
+  apply-version: 'true'
+
+pages:
+  index.md:
+    title: Home
+    generation: markdown
+  EnterpriseImaging.md:
+    title: Enterprise Imaging
+    generation: markdown
+  Radiology.md:
+    title: Radiology
+    generation: markdown
+  Endoscopy.md:
+    title: Endoscopy
+    generation: markdown
+  OtherImaging.md:
+    title: Other Imaging Specialties
+    generation: markdown
+  ImageSharing.md:
+    title: Image Sharing
+    generation: markdown
+  CancerPathway.md:
+    title: Imaging in the Cancer Pathway
+    generation: markdown
+  DataModel.md:
+    title: FHIR Resources
+    generation: markdown
+  terminology.md:
+    title: Terminology
+    generation: markdown
+
+menu:
+  Home: index.html
+  Analysis and Design (Volume 1):
+    Enterprise Imaging: EnterpriseImaging.html
+    Radiology: Radiology.html
+    Endoscopy: Endoscopy.html
+    Other Imaging Specialties: OtherImaging.html
+    Image Sharing: ImageSharing.html
+    Imaging in the Cancer Pathway: CancerPathway.html
+  Data Models (Volume 3):
+    FHIR Resources: DataModel.html
+    Terminology: terminology.html
+  Artifacts: artifacts.html
