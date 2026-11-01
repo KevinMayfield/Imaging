@@ -23,6 +23,8 @@ which the Cancer Pathology Report IG is built on.
 | [Radiology Diagnostic Report](StructureDefinition-RadiologyDiagnosticReport.html) | `DiagnosticReportEuImaging` | The radiology report; `code` carries the NICIP examination code and/or LOINC report type, as in Interweave |
 | [Radiological Accession Number](StructureDefinition-RadiologicalAccessionNumber.html) | `AccessionNumberIdentifierEuImaging` | Accession number, issuer identified by ODS code |
 | [Imaging Order (O19)](MessageDefinition-imaging-order.html) (message definition) | FHIR Messaging | FHIR Message equivalent of `OMG^O19` - [RAD-2](RAD-2.html) and [RAD-3](RAD-3.html), focus Radiology Service Request |
+| [Procedure Scheduled (O23)](MessageDefinition-procedure-scheduled.html) (message definition) | FHIR Messaging | FHIR Message equivalent of `OMI^O23` - [RAD-4 / RAD-13](RAD-4.html), focus Radiology Service Request and scheduled Radiology Imaging Study |
+| [Imaging Result (R01)](MessageDefinition-imaging-result.html) (message definition) | FHIR Messaging | FHIR Message equivalent of `ORU^R01` - [RAD-128](RAD-128.html), focus Radiology Diagnostic Report |
 | [Bundle Message](StructureDefinition-BundleMessage.html), [MessageHeader](StructureDefinition-MessageHeader.html) | `Bundle`, `MessageHeader` | FHIR Messaging, copied from the [NW GMSA FHIR IG](https://nw-gmsa.github.io/en/); `eventCoding` is the HL7 v2 trigger event |
 | [NICIP (Interweave)](ValueSet-Interweave-NICIP.html) (value set) | Interweave NICIP CodeSystem | NICIP codes for `ServiceRequest.code` and `DiagnosticReport.code` |
 | [UK Imaging Procedure](ValueSet-uk-imaging-procedure.html) (value set) | SNOMED CT UK refset 999001111000000105 | Imaging procedure codes |
@@ -43,7 +45,8 @@ Practitioners, identifiers and report text are fictional.
 | Example | Profile |
 |---|---|
 | [Radiology Service Request](ServiceRequest-RadiologyServiceRequestExample.html), and as a [new order](ServiceRequest-RadiologyServiceRequestNewOrder.html) | Radiology Service Request |
-| [Imaging Order (O19), new order](Bundle-ImagingOrderMessage.html) and [status change](Bundle-ImagingOrderStatusMessage.html) | Bundle Message |
+| [Imaging Order (O19), new order](Bundle-ImagingOrderMessage.html) and [status change](Bundle-ImagingOrderStatusMessage.html), [Procedure Scheduled (O23)](Bundle-ProcedureScheduledMessage.html), [Imaging Result (R01)](Bundle-ImagingResultMessage.html) | Bundle Message |
+| [Scheduled request](ServiceRequest-RadiologyServiceRequestScheduled.html) and [scheduled study](ImagingStudy-RadiologyImagingStudyScheduled.html) (RAD-4) | Radiology Service Request, Radiology Imaging Study |
 | [Radiology Imaging Study](ImagingStudy-RadiologyImagingStudyExample.html), with a [WADO-RS Endpoint](Endpoint-EndpointWADORS.html) | Radiology Imaging Study |
 | [Radiology Diagnostic Report](DiagnosticReport-RadiologyDiagnosticReportExample.html), with the [report PDF](Binary-RadiologyReportPDF.html) | Radiology Diagnostic Report |
 | [Composition](Composition-RadiologyCompositionExample.html) | `CompositionEuImaging` |

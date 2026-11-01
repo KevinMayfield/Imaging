@@ -93,7 +93,7 @@ sequenceDiagram
     IM ->> OF: Instance Availability Notification [RAD-49] (optional)<br/>or Image Availability Query [RAD-11]
     RC ->> IM: Retrieve Images [RAD-16]
     RC -->> RC: Radiologist / reporting radiographer reports
-    RC ->> OP: Send Imaging Result [RAD-128]<br/>ORU^R01 (or FHIR DiagnosticReport)
+    RC ->> OP: Send Imaging Result [RAD-128]<br/>ORU^R01 (or FHIR Message R01)
 ```
 
 SWF.b requires HL7 v2.5.1 for its HL7 transactions (the version the NW GMSA IG
@@ -104,9 +104,9 @@ also uses). Transactions covered by this guide:
 | Patient Registration [RAD-1], Patient Update [RAD-12] | ADT - Order Placer, Order Filler, Image Manager | HL7 v2.5.1 ADT | Not covered - see [NW GMSA](https://nw-gmsa.github.io/en/hl7v2.html) |
 | Placer Order Management [RAD-2] | Order Placer - Order Filler | HL7 v2.5.1 `OMG^O19`; FHIR Message [Imaging Order (O19)](MessageDefinition-imaging-order.html) | [RAD-2](RAD-2.html) |
 | Filler Order Management [RAD-3] | Order Filler - Order Placer | HL7 v2.5.1 `OMG^O19`; FHIR Message [Imaging Order (O19)](MessageDefinition-imaging-order.html) | [RAD-3](RAD-3.html) |
-| Procedure Scheduled [RAD-4], Procedure Update [RAD-13] | Order Filler - Image Manager | HL7 v2.5.1 `OMI^O23` | [RAD-4](RAD-4.html) |
+| Procedure Scheduled [RAD-4], Procedure Update [RAD-13] | Order Filler - Image Manager | HL7 v2.5.1 `OMI^O23`; FHIR Message [Procedure Scheduled (O23)](MessageDefinition-procedure-scheduled.html) | [RAD-4](RAD-4.html) |
 | Query Modality Worklist [RAD-5], Modality Procedure Step [RAD-6/7], Modality Images Stored [RAD-8], Storage Commitment [RAD-10], Image Availability Query [RAD-11], Retrieve Images [RAD-16], Instance Availability Notification [RAD-49] (optional) | Modality, Image Manager, Order Filler, Image Display | DICOM | Out of scope |
-| Send Imaging Result [RAD-128] (Results Distribution, not SWF.b; older equivalent RAD-28) | Report Creator / Manager - Report Consumer | HL7 v2.5.1 `ORU^R01` | [RAD-128](RAD-128.html) |
+| Send Imaging Result [RAD-128] (Results Distribution, not SWF.b; older equivalent RAD-28) | Report Creator / Manager - Report Consumer | HL7 v2.5.1 `ORU^R01`; FHIR Message [Imaging Result (R01)](MessageDefinition-imaging-result.html) | [RAD-128](RAD-128.html) |
 {:.grid}
 
 Indicative mapping of the main SWF.b actors to typical NHS systems:
