@@ -34,9 +34,23 @@ Parent / child orders (ORC-1 `PA` / `CH`) are optional in IHE and not covered he
 sequenceDiagram
     participant OP as Order Placer<br/>EPR / Order Comms
     participant OF as Order Filler<br/>RIS
-    OP ->> OF: OMG^O19 (new / change / cancel)
-    OF -->> OP: ORG^O20
+    OP ->> OF: OMG^O19 / FHIR Message (O19, focus ServiceRequest)
+    OF -->> OP: ORG^O20 / FHIR response message
 ```
+
+### FHIR Message
+
+The FHIR equivalent of `OMG^O19` is the [Imaging Order (O19)](MessageDefinition-imaging-order.html)
+message: a [Bundle Message](StructureDefinition-BundleMessage.html) whose
+[MessageHeader](StructureDefinition-MessageHeader.html) has `eventCoding` v2-0003 `O19`
+and whose focus is the [Radiology Service Request](StructureDefinition-RadiologyServiceRequest.html).
+The same message is used for RAD-2 and [RAD-3](RAD-3.html), following the
+[Patient Care Coordination](https://github.com/KevinMayfield/PatientCareCoordination)
+proof of concept, where a referral (`REF_I12` or `OMG^O19`) becomes one O19 FHIR
+Message whatever the HL7 v2 source. `ORG^O20` is a FHIR response message
+(`MessageHeader.response`).
+
+Example: [Bundle Message - Imaging Order (O19), new order](Bundle-ImagingOrderMessage.html).
 
 ### FHIR Mapping
 
@@ -47,6 +61,8 @@ following the HL7 v2-to-FHIR
 
 | HL7 v2.5.1 | FHIR | Note |
 |---|---|---|
+| MSH-4 / MSH-6 | `MessageHeader.sender` / `destination.receiver` (ODS code) | Sending / receiving facility |
+| MSH-9 | `MessageHeader.eventCoding` v2-0003 `O19` | `OMG^O19^OMG_O19` |
 | PID-3 | `ServiceRequest.subject` ([Patient](StructureDefinition-Patient.html)) | NHS number and MRN |
 | PV1-19 | `ServiceRequest.encounter` | Visit number |
 | ORC-1 | `ServiceRequest.status` / `intent` | `NW` new, `XO` change, `CA` cancel |
@@ -58,7 +74,7 @@ following the HL7 v2-to-FHIR
 | TQ1-9 | `ServiceRequest.priority` | Priority |
 {:.grid}
 
-Example: [Radiology Service Request](ServiceRequest-RadiologyServiceRequestExample.html).
+Example: [Radiology Service Request - new order](ServiceRequest-RadiologyServiceRequestNewOrder.html).
 The accession number is not known to the Order Placer at this point - it is
 assigned by the RIS (see [Filler Order Management [RAD-3]](RAD-3.html) and
 [Procedure Scheduled [RAD-4]](RAD-4.html)).

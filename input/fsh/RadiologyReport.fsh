@@ -12,7 +12,8 @@ National Imaging Registry. The items have **not** been checked against the RCR
 text, and cardinalities are this guide's assumption (**To confirm**).
 
 Indicative HL7 v2 (ORU^R01), DICOM and FHIR mappings are shown on the
-**Mappings** tab. The FHIR representation is [Radiology Diagnostic Report](StructureDefinition-RadiologyDiagnosticReport.html),
+**Mappings** tab, including the HL7 v2.5.1 to FHIR conversion of
+[Send Imaging Result [RAD-128]](RAD-128.html). The FHIR representation is [Radiology Diagnostic Report](StructureDefinition-RadiologyDiagnosticReport.html),
 with the request in [Radiology Service Request](StructureDefinition-RadiologyServiceRequest.html)
 and the study in [Radiology Imaging Study](StructureDefinition-RadiologyImagingStudy.html).
 """
@@ -48,7 +49,7 @@ Mapping:        RadiologyReport-HL7v2
 Source:         RadiologyReport
 Target:         "http://hl7.org/v2"
 Id:             hl7v2
-Title:          "HL7 v2 ORU^R01 (indicative)"
+Title:          "HL7 v2.5.1 ORU^R01 - Send Imaging Result [RAD-128] (indicative)"
 * reportIdentifier -> "OBR-3 Filler Order Number"
 * patient -> "PID-3 Patient Identifier List"
 * accessionNumber -> "ORC-3 / OBR-3 Filler Order Number"
@@ -63,7 +64,7 @@ Title:          "HL7 v2 ORU^R01 (indicative)"
 * secondaryReporter -> "OBR-33 Assistant Result Interpreter"
 * clinicalHistory -> "OBX-5"
 * radiographerComments -> "NTE-3"
-* reportText -> "OBX-5"
+* reportText -> "OBX-5 (value type TX; or ED - PDF Option)"
 
 Mapping:        RadiologyReport-DICOM
 Source:         RadiologyReport
@@ -100,3 +101,26 @@ Title:          "FHIR (this guide's profiles)"
 * radiographerComments -> "DiagnosticReport.extension:note"
 * reportText -> "DiagnosticReport.presentedForm; Composition (DiagnosticReport.extension:composition)"
 * conclusion -> "DiagnosticReport.conclusion (coded impressions: DiagnosticReport.extension:impression)"
+
+Mapping:        RadiologyReport-RAD128-FHIR
+Source:         RadiologyReport
+Target:         "https://kevinmayfield.github.io/Imaging/RAD-128.html"
+Id:             rad128
+Title:          "Send Imaging Result [RAD-128] - HL7 v2.5.1 to FHIR (indicative)"
+* -> "ORU^R01^ORU_R01 to a Bundle of DiagnosticReport, Patient, DocumentReference and Binary, following the HL7 v2-to-FHIR ORU_R01 ConceptMap and the NW GMSA conventions"
+* reportIdentifier -> "OBR-3 Filler Order Number -> DiagnosticReport.identifier (ReportIdentifier)"
+* patient -> "PID-3 -> Patient.identifier:nhsNumber / MedicalRecordNumber; DiagnosticReport.subject"
+* accessionNumber -> "ORC-3 / OBR-3 Filler Order Number -> DiagnosticReport.basedOn.identifier (RadiologicalAccessionNumber). Field carrying the accession number in RAD-128 is To confirm"
+* visitNumber -> "PV1-19 -> Encounter.identifier (VisitNumber); DiagnosticReport.encounter"
+* examination -> "OBR-4 (NICIP) -> DiagnosticReport.code.coding:nicip"
+* diagnosticServiceSection -> "OBR-24 -> DiagnosticReport.category"
+* examinationCompleted -> "OBR-7 / OBR-8 -> DiagnosticReport.effectiveDateTime / effectivePeriod"
+* imagingSite -> "PV1-3 (facility) -> DiagnosticReport.performer (Organization)"
+* operator -> "OBR-34 -> not carried on DiagnosticReport; ImagingStudy.series.performer"
+* reportIssued -> "OBR-22 -> DiagnosticReport.issued"
+* primaryReporter -> "OBR-32 -> DiagnosticReport.resultsInterpreter (Practitioner / PractitionerRole)"
+* secondaryReporter -> "OBR-33 -> DiagnosticReport.resultsInterpreter"
+* clinicalHistory -> "OBX-5 (clinical history OBX) -> ServiceRequest.reasonCode / supportingInfo"
+* radiographerComments -> "NTE-3 -> DiagnosticReport.extension:note"
+* reportText -> "OBX-5 type TX -> DiagnosticReport.presentedForm (text/plain) or Composition; type ED (PDF Option) -> Binary.data, DocumentReference.content.attachment.url -> Binary, DiagnosticReport.presentedForm.url -> Binary (no Attachment.data)"
+* conclusion -> "OBX-5 (impression OBX, if sent separately - Open) -> DiagnosticReport.conclusion"

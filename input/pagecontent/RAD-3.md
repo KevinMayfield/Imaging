@@ -31,9 +31,18 @@ and of cancellations by the Order Filler.
 sequenceDiagram
     participant OP as Order Placer<br/>EPR / Order Comms
     participant OF as Order Filler<br/>RIS
-    OF ->> OP: OMG^O19 (filler order / status / cancel)
-    OP -->> OF: ORG^O20
+    OF ->> OP: OMG^O19 / FHIR Message (O19, focus ServiceRequest)
+    OP -->> OF: ORG^O20 / FHIR response message
 ```
+
+### FHIR Message
+
+The same [Imaging Order (O19)](MessageDefinition-imaging-order.html) FHIR Message as
+[RAD-2](RAD-2.html#fhir-message), sent by the Order Filler. The order control and
+status are carried by the [Radiology Service Request](StructureDefinition-RadiologyServiceRequest.html).
+
+Example: [Bundle Message - Imaging Order (O19), status change](Bundle-ImagingOrderStatusMessage.html)
+(ORC-1 `SC`, ORC-5 `CM`), with the accession number assigned by the RIS.
 
 ### FHIR Mapping
 
