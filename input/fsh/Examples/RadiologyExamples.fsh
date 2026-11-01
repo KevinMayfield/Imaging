@@ -19,16 +19,14 @@ RuleSet: AccessionNumberExample
 // Participants
 
 Instance:       PatientManchester
-InstanceOf:     http://hl7.eu/fhir/base/StructureDefinition/patient-eu-core
+InstanceOf:     Patient
 Title:          "Patient - MANCHESTER Sansa"
 Description:    "NW GMSA test patient (NHS number 973 738 3192, MFT MRN R0A4990415)."
 Usage:          #example
-* identifier[0].system = "https://fhir.nhs.uk/Id/nhs-number"
-* identifier[0].value = "9737383192"
-* identifier[1].type = $v2-0203#MR
-* identifier[1].value = "R0A4990415"
-* identifier[1].assigner.identifier.system = $ods
-* identifier[1].assigner.identifier.value = "R0A"
+* identifier[nhsNumber].system = "https://fhir.nhs.uk/Id/nhs-number"
+* identifier[nhsNumber].value = "9737383192"
+* identifier[MedicalRecordNumber].value = "R0A4990415"
+* identifier[MedicalRecordNumber].assigner.identifier.value = "R0A"
 * name.family = "MANCHESTER"
 * name.given = "Sansa"
 * gender = #female
@@ -143,6 +141,8 @@ InstanceOf:     RadiologyDiagnosticReport
 Title:          "Radiology Diagnostic Report - CT thorax, abdomen and pelvis"
 Description:    "Final report for the staging CT, with the full text in presentedForm and the FHIR document in the composition extension."
 Usage:          #example
+* text.status = #generated
+* text.div = """<div xmlns="http://www.w3.org/1999/xhtml"><p><b>CT thorax, abdomen and pelvis with contrast</b> - final report, issued 29 October 2026.</p><p>Patient: MANCHESTER Sansa (NHS number 973 738 3192). Accession number RAD26110001. Imaging site: Manchester University NHS Foundation Trust (R0A). Reported by Dr Robin EXAMPLE (fictional).</p><p>Conclusion: Example conclusion for a proof-of-concept report.</p><p>Report: PDF at <code>Binary/RadiologyReportPDF</code> (presentedForm.url).</p></div>"""
 * extension[composition].valueReference = Reference(RadiologyCompositionExample)
 * identifier.type = $v2-0203#FILL
 * identifier.system = "http://example.org/R0A/report-identifier"
@@ -161,10 +161,12 @@ Usage:          #example
 * resultsInterpreter[author] = Reference(PractitionerRadiologist)
 * imagingStudy = Reference(RadiologyImagingStudyExample)
 * conclusion = "Example conclusion for a proof-of-concept report."
-* presentedForm.contentType = #text/plain
+* presentedForm.contentType = #application/pdf
 * presentedForm.language = #en-GB
+* presentedForm.url = "Binary/RadiologyReportPDF"
+* presentedForm.size = 1243
 * presentedForm.title = "CT thorax, abdomen and pelvis with contrast"
-* presentedForm.data = "Q1QgVEhPUkFYLCBBQkRPTUVOIEFORCBQRUxWSVMgV0lUSCBDT05UUkFTVAoKQ2xpbmljYWwgaGlzdG9yeTogU3RhZ2luZyBvZiBzdXNwZWN0ZWQgY29sb3JlY3RhbCBjYW5jZXIuCgpUZWNobmlxdWU6IFBvcnRhbCB2ZW5vdXMgcGhhc2UgQ1Qgb2YgdGhlIHRob3JheCwgYWJkb21lbiBhbmQgcGVsdmlzIGZvbGxvd2luZyBpbnRyYXZlbm91cyBjb250cmFzdC4KCkZpbmRpbmdzOiBFeGFtcGxlIGZpbmRpbmdzIGZvciBhIHByb29mLW9mLWNvbmNlcHQgcmVwb3J0LiBOb3QgYSByZWFsIHBhdGllbnQgb3IgYSByZWFsIHJlcG9ydC4KCkNvbmNsdXNpb246IEV4YW1wbGUgY29uY2x1c2lvbiBmb3IgYSBwcm9vZi1vZi1jb25jZXB0IHJlcG9ydC4K"
+* presentedForm.creation = "2026-10-29T09:45:00Z"
 
 Instance:       RadiologyCompositionExample
 InstanceOf:     http://hl7.eu/fhir/imaging/StructureDefinition/CompositionEuImaging
@@ -214,3 +216,11 @@ Usage:          #example
 * section[impression].text.div = "<div xmlns=\"http://www.w3.org/1999/xhtml\">Example conclusion for a proof-of-concept report.</div>"
 * section[impression].extension[0].url = "http://hl7.org/fhir/StructureDefinition/note"
 * section[impression].extension[0].valueAnnotation.text = "Example conclusion for a proof-of-concept report."
+
+Instance:       RadiologyReportPDF
+InstanceOf:     Binary
+Title:          "Binary - CT thorax, abdomen and pelvis report (PDF)"
+Description:    "The issued report as a PDF, referenced from DiagnosticReport.presentedForm.url. Fictional report text."
+Usage:          #example
+* contentType = #application/pdf
+* data = "JVBERi0xLjQKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAwIFIgPj4KZW5kb2JqCjIgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzIC9LaWRzIFszIDAgUl0gL0NvdW50IDEgPj4KZW5kb2JqCjMgMCBvYmoKPDwgL1R5cGUgL1BhZ2UgL1BhcmVudCAyIDAgUiAvTWVkaWFCb3ggWzAgMCA1OTUgODQyXSAvQ29udGVudHMgNSAwIFIgL1Jlc291cmNlcyA8PCAvRm9udCA8PCAvRjEgNCAwIFIgPj4gPj4gPj4KZW5kb2JqCjQgMCBvYmoKPDwgL1R5cGUgL0ZvbnQgL1N1YnR5cGUgL1R5cGUxIC9CYXNlRm9udCAvSGVsdmV0aWNhID4+CmVuZG9iago1IDAgb2JqCjw8IC9MZW5ndGggNjk4ID4+CnN0cmVhbQpCVCAvRjEgMTAgVGYgNTAgNzkwIFRkIDE0IFRMCihDVCBUSE9SQVgsIEFCRE9NRU4gQU5EIFBFTFZJUyBXSVRIIENPTlRSQVNUKSBUaiBUKgooUGF0aWVudDogTUFOQ0hFU1RFUiBTYW5zYSAgTkhTIG51bWJlciA5NzMgNzM4IDMxOTIgXChOVyBHTVNBIHRlc3QgcGF0aWVudFwpKSBUaiBUKgooQWNjZXNzaW9uIG51bWJlciBSQUQyNjExMDAwMSAgTWFuY2hlc3RlciBVbml2ZXJzaXR5IE5IUyBGb3VuZGF0aW9uIFRydXN0KSBUaiBUKgooKSBUaiBUKgooQ2xpbmljYWwgaGlzdG9yeTogU3RhZ2luZyBvZiBzdXNwZWN0ZWQgY29sb3JlY3RhbCBjYW5jZXIuKSBUaiBUKgooVGVjaG5pcXVlOiBQb3J0YWwgdmVub3VzIHBoYXNlIENUIG9mIHRoZSB0aG9yYXgsIGFiZG9tZW4gYW5kIHBlbHZpcykgVGogVCoKKGZvbGxvd2luZyBpbnRyYXZlbm91cyBjb250cmFzdC4pIFRqIFQqCihGaW5kaW5nczogRXhhbXBsZSBmaW5kaW5ncyBmb3IgYSBwcm9vZi1vZi1jb25jZXB0IHJlcG9ydC4pIFRqIFQqCihOb3QgYSByZWFsIHBhdGllbnQgb3IgYSByZWFsIHJlcG9ydC4pIFRqIFQqCihDb25jbHVzaW9uOiBFeGFtcGxlIGNvbmNsdXNpb24gZm9yIGEgcHJvb2Ytb2YtY29uY2VwdCByZXBvcnQuKSBUaiBUKgooKSBUaiBUKgooUmVwb3J0ZWQgYnkgRHIgUm9iaW4gRVhBTVBMRSBcKGZpY3Rpb25hbFwpLCAyOSBPY3RvYmVyIDIwMjYpIFRqIFQqCkVUCmVuZHN0cmVhbQplbmRvYmoKeHJlZgowIDYKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDA5IDAwMDAwIG4gCjAwMDAwMDAwNTggMDAwMDAgbiAKMDAwMDAwMDExNSAwMDAwMCBuIAowMDAwMDAwMjQxIDAwMDAwIG4gCjAwMDAwMDAzMTEgMDAwMDAgbiAKdHJhaWxlcgo8PCAvU2l6ZSA2IC9Sb290IDEgMCBSID4+CnN0YXJ0eHJlZgoxMDU5CiUlRU9GCg=="

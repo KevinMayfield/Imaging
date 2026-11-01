@@ -17,6 +17,7 @@ which the Cancer Pathology Report IG is built on.
 | Artefact | Based on | Use |
 |---|---|---|
 | [Radiology Report](StructureDefinition-RadiologyReport.html) (logical model) | RCR report data items | Content of a radiology report, with indicative HL7 v2, DICOM and FHIR mappings |
+| [Patient](StructureDefinition-Patient.html) | `patient-eu-core` | NW core Patient (copied from the [NW GMSA FHIR IG](https://nw-gmsa.github.io/en/)) - NHS number and MRN identifiers. All this guide's profiles reference it |
 | [Radiology Service Request](StructureDefinition-RadiologyServiceRequest.html) | `ServiceRequestOrderEuImaging` | Imaging request: NICIP / SNOMED CT procedure, accession number |
 | [Radiology Imaging Study](StructureDefinition-RadiologyImagingStudy.html) | `ImagingStudyEuImaging` | DICOM study metadata, with DICOM tags in the element descriptions |
 | [Radiology Diagnostic Report](StructureDefinition-RadiologyDiagnosticReport.html) | `DiagnosticReportEuImaging` | The radiology report |
@@ -40,9 +41,13 @@ Practitioners, identifiers and report text are fictional.
 |---|---|
 | [Radiology Service Request](ServiceRequest-RadiologyServiceRequestExample.html) | Radiology Service Request |
 | [Radiology Imaging Study](ImagingStudy-RadiologyImagingStudyExample.html), with a [WADO-RS Endpoint](Endpoint-EndpointWADORS.html) | Radiology Imaging Study |
-| [Radiology Diagnostic Report](DiagnosticReport-RadiologyDiagnosticReportExample.html) | Radiology Diagnostic Report |
+| [Radiology Diagnostic Report](DiagnosticReport-RadiologyDiagnosticReportExample.html), with the [report PDF](Binary-RadiologyReportPDF.html) | Radiology Diagnostic Report |
 | [Composition](Composition-RadiologyCompositionExample.html) | `CompositionEuImaging` |
 {:.grid}
+
+Following the NW GMSA convention, the report PDF is referenced by
+`DiagnosticReport.presentedForm.url` (`Binary/RadiologyReportPDF`) rather than
+embedded in `presentedForm.data`.
 
 The accession number `system` in the examples (`http://example.org/R0A/accession-number`)
 is a placeholder, because the convention is **Open**.

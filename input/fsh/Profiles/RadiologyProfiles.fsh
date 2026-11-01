@@ -52,6 +52,7 @@ the radiological accession number.
 * code ^short = "Imaging procedure requested - NICIP code and its SNOMED CT map"
 * code from UKImagingProcedure (preferred)
 * subject MS
+* subject only Reference(Patient)
 * reasonCode MS
 * reasonCode ^short = "Clinical question / reason for the request"
 * supportingInfo MS
@@ -73,6 +74,7 @@ General Series modules - see [FHIR Resources](DataModel.html#imaging-study-data-
 * ^experimental = true
 * identifier MS
 * identifier ^short = "Study Instance UID (0020,000D)"
+* subject only Reference(Patient)
 * basedOn MS
 * basedOn[ServiceRequestOrderEuImagingaccession] only Reference(RadiologyServiceRequest)
 * basedOn[ServiceRequestOrderEuImagingaccession].identifier only RadiologicalAccessionNumber
@@ -132,6 +134,7 @@ Imaging.
 * code MS
 * code ^short = "Report type, for example LOINC 18748-4 Diagnostic imaging study"
 * subject MS
+* subject only Reference(Patient)
 * subject ^short = "Patient, identified by NHS number"
 * encounter MS
 * encounter ^short = "Visit number (HL7 v2 PV1-19)"
@@ -150,4 +153,6 @@ Imaging.
 * conclusion MS
 * conclusion ^short = "Conclusion of the report"
 * presentedForm MS
-* presentedForm ^short = "The report as issued (HL7 v2 OBX-5), for example PDF or text"
+* presentedForm only NWAttachment
+* presentedForm ^short = "The report as issued (HL7 v2 OBX-5), referenced by url - for example a PDF"
+* presentedForm ^comment = "Following the NW GMSA convention, the report is referenced by `url` (for example a Binary or DocumentReference) rather than embedded in `data`."

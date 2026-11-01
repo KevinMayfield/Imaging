@@ -1,6 +1,6 @@
 // DUPLICATION: copied from the NW GMSA FHIR IG (https://nw-gmsa.github.io/en/,
 // source ../FHIRGenomics/input/fsh/DataTypes and Termininology, 2026-11-01) so this
-// guide follows the same identifier conventions without depending on that IG.
+// guide follows the same identifier and attachment conventions without depending on that IG.
 // Changes from the source: the UK Core NHSNumberVerificationStatus extension is
 // removed from NHSIdentifier (no UK Core dependency) and the NW GMSA ZCID code is
 // removed from NWIdentifierType, and the NationalHealthIdentifiers CodeSystem is
@@ -8,6 +8,7 @@
 
 Alias: $v2-0203 = http://terminology.hl7.org/CodeSystem/v2-0203
 Alias: $ods-code = https://fhir.nhs.uk/Id/ods-organization-code
+Alias: $bcp13 = urn:ietf:bcp:13
 
 // Identifier data types
 
@@ -61,6 +62,16 @@ Description:    "Patient identifier assigned by an NHS trust. Copied from the [N
 * assigner.identifier.system = $ods-code
 * assigner.identifier.value ^example.valueString = "R0A"
 * assigner.identifier.value ^example.label = "Manchester University NHS Foundation Trust"
+
+Profile:        PatientIdentifier
+Parent:         CorrelationIdentifier
+Id:             PatientIdentifier
+Title:          "Patient Identifier"
+Description:     """
+Not applicable per the NHS England Canonical Data Model - use [Medical Record Number](StructureDefinition-MedicalRecordNumber.html) instead. Copied from the [NW GMSA FHIR IG](https://nw-gmsa.github.io/en/).
+"""
+
+* type = $v2-0203#PI (exactly)
 
 Profile:        OrganisationCode
 Parent:         CorrelationIdentifier
@@ -122,7 +133,21 @@ Description:    "Encounter or visit number. Copied from the [NW GMSA FHIR IG](ht
 * type = $v2-0203#VN (exactly)
 * assigner 1..1 MS
 
-// Terminology used by the identifier data types
+// Attachment
+
+Profile:        NWAttachment
+Parent:         http://hl7.org/fhir/StructureDefinition/Attachment
+Id:             NWAttachment
+Title:          "Attachment"
+Description:     """
+DRAFT: Additional conformance on FHIR Attachment data type. Copied from the [NW GMSA FHIR IG](https://nw-gmsa.github.io/en/).
+"""
+
+* url ^short = "Uri where the data can be found. Mandatory for PDF or FHIR Documents"
+* data ^short = "Avoid using for wider compatability reasons."
+* contentType from DocumentEntryMimeType
+
+// Terminology used by the data types
 
 ValueSet: NWIdentifierType
 Id: NWIdentifierType
@@ -186,3 +211,20 @@ Description: """PractitionerIdentifiers. Copied from the [NW GMSA FHIR IG](https
 """
 * ^experimental  = false
 * include codes from system ProfessionalLicense
+
+ValueSet: DocumentEntryMimeType
+Id: document-entry-mimetype
+Title: "DocumentEntry mimeType"
+Description: """
+- [Switzerland DocumentEntry.mimeType](https://fhir.ch/ig/ch-term/3.1.0/ValueSet-DocumentEntry.mimeType.html)
+
+Copied from the [NW GMSA FHIR IG](https://nw-gmsa.github.io/en/).
+"""
+* ^experimental  = false
+
+* $bcp13#application/pdf
+* $bcp13#application/dicom
+* $bcp13#application/fhir+json
+* $bcp13#application/fhir+xml
+* $bcp13#image/jpeg
+* $bcp13#image/png
