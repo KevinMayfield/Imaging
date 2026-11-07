@@ -143,7 +143,7 @@ Title:          "Radiology Diagnostic Report - CT thorax, abdomen and pelvis"
 Description:    "Final report for the staging CT, with the full text in presentedForm and the FHIR document in the composition extension."
 Usage:          #example
 * text.status = #generated
-* text.div = """<div xmlns="http://www.w3.org/1999/xhtml"><p><b>CT thorax, abdomen and pelvis with contrast</b> - final report, issued 29 October 2026.</p><p>Patient: MANCHESTER Sansa (NHS number 973 738 3192). Accession number RAD26110001. Imaging site: Manchester University NHS Foundation Trust (R0A). Reported by Dr Robin EXAMPLE (fictional).</p><p>Conclusion: Example conclusion for a proof-of-concept report.</p><p>Report: PDF at <code>Binary/RadiologyReportPDF</code> (presentedForm.url).</p></div>"""
+* text.div = """<div xmlns="http://www.w3.org/1999/xhtml"><p><b>CT thorax, abdomen and pelvis with contrast</b> - final report, issued 29 October 2026.</p><p>Patient: MANCHESTER Sansa (NHS number 973 738 3192). Accession number RAD26110001. Imaging site: Manchester University NHS Foundation Trust (R0A). Reported by Dr Robin EXAMPLE (fictional).</p><p>Conclusion: Caecal tumour extending beyond the bowel wall, with two suspicious pericolic lymph nodes. No evidence of distant metastases. Radiological stage T3 N1 M0.</p><p>Report: PDF at <code>Binary/RadiologyReportPDF</code> (presentedForm.url).</p></div>"""
 * extension[composition].valueReference = Reference(RadiologyCompositionExample)
 * identifier.type = $v2-0203#FILL
 * identifier.system = "http://example.org/R0A/report-identifier"
@@ -162,11 +162,11 @@ Usage:          #example
 * performer[organization] = Reference(OrganizationMFT)
 * resultsInterpreter[author] = Reference(PractitionerRadiologist)
 * imagingStudy = Reference(RadiologyImagingStudyExample)
-* conclusion = "Example conclusion for a proof-of-concept report."
+* conclusion = "Caecal tumour extending beyond the bowel wall, with two suspicious pericolic lymph nodes. No evidence of distant metastases. Radiological stage T3 N1 M0."
 * presentedForm.contentType = #application/pdf
 * presentedForm.language = #en-GB
 * presentedForm.url = "Binary/RadiologyReportPDF"
-* presentedForm.size = 1243
+* presentedForm.size = 3597
 * presentedForm.title = "CT thorax, abdomen and pelvis with contrast"
 * presentedForm.creation = "2026-10-29T09:45:00Z"
 
@@ -192,32 +192,47 @@ Usage:          #example
 * title = "CT thorax, abdomen and pelvis with contrast"
 * section[imagingstudy].title = "Imaging Study"
 * section[imagingstudy].text.status = #generated
-* section[imagingstudy].text.div = "<div xmlns=\"http://www.w3.org/1999/xhtml\">CT thorax, abdomen and pelvis with contrast, 28 October 2026, 1 series, 412 instances.</div>"
+* section[imagingstudy].text.div = "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Examination.</b> CT thorax, abdomen and pelvis with contrast (NICIP CCHAPC). 1 series, 412 images.</p></div>"
 * section[imagingstudy].entry[imagingstudy] = Reference(RadiologyImagingStudyExample)
 * section[order].title = "Order"
 * section[order].text.status = #generated
-* section[order].text.div = "<div xmlns=\"http://www.w3.org/1999/xhtml\">CT thorax, abdomen and pelvis with contrast. Accession number RAD26110001.</div>"
+* section[order].text.div = "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>CT thorax, abdomen and pelvis with contrast. Accession number RAD26110001. Requested by Colorectal Surgery.</p></div>"
 * section[order].entry = Reference(RadiologyServiceRequestExample)
 * section[history].title = "History"
 * section[history].text.status = #generated
-* section[history].text.div = "<div xmlns=\"http://www.w3.org/1999/xhtml\">Staging of suspected colorectal cancer.</div>"
+* section[history].text.div = "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Clinical history.</b> Caecal mass found at colonoscopy; biopsy awaited. Staging of suspected colorectal cancer.</p></div>"
 * section[history].extension[0].url = "http://hl7.org/fhir/StructureDefinition/note"
-* section[history].extension[0].valueAnnotation.text = "Staging of suspected colorectal cancer."
+* section[history].extension[0].valueAnnotation.text = "Caecal mass found at colonoscopy; biopsy awaited. Staging of suspected colorectal cancer."
 * section[procedure].title = "Procedure"
 * section[procedure].text.status = #generated
-* section[procedure].text.div = "<div xmlns=\"http://www.w3.org/1999/xhtml\">Portal venous phase CT of the thorax, abdomen and pelvis following intravenous contrast.</div>"
+* section[procedure].text.div = "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Technique.</b> Portal venous phase CT of the thorax, abdomen and pelvis following 100 ml intravenous contrast. No immediate adverse reaction. DLP 820 mGy·cm.</p></div>"
 * section[procedure].extension[0].url = "http://hl7.org/fhir/StructureDefinition/note"
-* section[procedure].extension[0].valueAnnotation.text = "Portal venous phase CT of the thorax, abdomen and pelvis following intravenous contrast."
+* section[procedure].extension[0].valueAnnotation.text = "Portal venous phase CT of the thorax, abdomen and pelvis following 100 ml intravenous contrast. No immediate adverse reaction. DLP 820 mGy·cm."
+* section[comparison].title = "Comparison"
+* section[comparison].text.status = #generated
+* section[comparison].text.div = "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Comparison.</b> No previous cross-sectional imaging available.</p></div>"
+* section[comparison].extension[0].url = "http://hl7.org/fhir/StructureDefinition/note"
+* section[comparison].extension[0].valueAnnotation.text = "No previous cross-sectional imaging available."
 * section[findings].title = "Findings"
 * section[findings].text.status = #generated
-* section[findings].text.div = "<div xmlns=\"http://www.w3.org/1999/xhtml\">Example findings for a proof-of-concept report. Not a real patient or a real report.</div>"
+* section[findings].text.div = "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Findings.</b></p><p><i>Thorax:</i> No pulmonary nodules or masses. No mediastinal or hilar lymphadenopathy. No pleural effusion.</p><p><i>Abdomen and pelvis:</i> Irregular circumferential wall thickening of the caecum over 45 mm, with stranding of the adjacent pericolic fat, in keeping with the known tumour. Two pericolic lymph nodes, the largest 8 mm short axis. The liver is normal, with no focal lesion. No ascites or peritoneal deposits. The remaining bowel, kidneys, adrenals, pancreas and spleen are unremarkable. No suspicious bone lesion.</p></div>"
 * section[findings].extension[0].url = "http://hl7.org/fhir/StructureDefinition/note"
-* section[findings].extension[0].valueAnnotation.text = "Example findings for a proof-of-concept report. Not a real patient or a real report."
+* section[findings].extension[0].valueAnnotation.text = "Thorax: No pulmonary nodules or masses. No mediastinal or hilar lymphadenopathy. No pleural effusion. Abdomen and pelvis: Irregular circumferential wall thickening of the caecum over 45 mm, with stranding of the adjacent pericolic fat, in keeping with the known tumour. Two pericolic lymph nodes, the largest 8 mm short axis. The liver is normal, with no focal lesion. No ascites or peritoneal deposits. The remaining bowel, kidneys, adrenals, pancreas and spleen are unremarkable. No suspicious bone lesion."
 * section[impression].title = "Impression"
 * section[impression].text.status = #generated
-* section[impression].text.div = "<div xmlns=\"http://www.w3.org/1999/xhtml\">Example conclusion for a proof-of-concept report.</div>"
+* section[impression].text.div = "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Conclusion.</b> Caecal tumour extending beyond the bowel wall, with two suspicious pericolic lymph nodes. No evidence of distant metastases. Radiological stage T3 N1 M0.</p></div>"
 * section[impression].extension[0].url = "http://hl7.org/fhir/StructureDefinition/note"
-* section[impression].extension[0].valueAnnotation.text = "Example conclusion for a proof-of-concept report."
+* section[impression].extension[0].valueAnnotation.text = "Caecal tumour extending beyond the bowel wall, with two suspicious pericolic lymph nodes. No evidence of distant metastases. Radiological stage T3 N1 M0."
+* section[recommendation].title = "Recommendation"
+* section[recommendation].text.status = #generated
+* section[recommendation].text.div = "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Recommendation.</b> Discuss at the colorectal cancer MDT.</p></div>"
+* section[recommendation].extension[0].url = "http://hl7.org/fhir/StructureDefinition/note"
+* section[recommendation].extension[0].valueAnnotation.text = "Discuss at the colorectal cancer MDT."
+* section[communication].title = "Communication"
+* section[communication].text.status = #generated
+* section[communication].text.div = "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Communication.</b> Not an urgent unexpected finding. Report added to the colorectal MDT list on 29-Oct-2026.</p></div>"
+* section[communication].extension[0].url = "http://hl7.org/fhir/StructureDefinition/note"
+* section[communication].extension[0].valueAnnotation.text = "Not an urgent unexpected finding. Report added to the colorectal MDT list on 29-Oct-2026."
 
 Instance:       RadiologyReportPDF
 InstanceOf:     Binary
@@ -225,7 +240,7 @@ Title:          "Binary - CT thorax, abdomen and pelvis report (PDF)"
 Description:    "The issued report as a PDF, referenced from DiagnosticReport.presentedForm.url. Fictional report text."
 Usage:          #example
 * contentType = #application/pdf
-* data = "JVBERi0xLjQKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAwIFIgPj4KZW5kb2JqCjIgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzIC9LaWRzIFszIDAgUl0gL0NvdW50IDEgPj4KZW5kb2JqCjMgMCBvYmoKPDwgL1R5cGUgL1BhZ2UgL1BhcmVudCAyIDAgUiAvTWVkaWFCb3ggWzAgMCA1OTUgODQyXSAvQ29udGVudHMgNSAwIFIgL1Jlc291cmNlcyA8PCAvRm9udCA8PCAvRjEgNCAwIFIgPj4gPj4gPj4KZW5kb2JqCjQgMCBvYmoKPDwgL1R5cGUgL0ZvbnQgL1N1YnR5cGUgL1R5cGUxIC9CYXNlRm9udCAvSGVsdmV0aWNhID4+CmVuZG9iago1IDAgb2JqCjw8IC9MZW5ndGggNjk4ID4+CnN0cmVhbQpCVCAvRjEgMTAgVGYgNTAgNzkwIFRkIDE0IFRMCihDVCBUSE9SQVgsIEFCRE9NRU4gQU5EIFBFTFZJUyBXSVRIIENPTlRSQVNUKSBUaiBUKgooUGF0aWVudDogTUFOQ0hFU1RFUiBTYW5zYSAgTkhTIG51bWJlciA5NzMgNzM4IDMxOTIgXChOVyBHTVNBIHRlc3QgcGF0aWVudFwpKSBUaiBUKgooQWNjZXNzaW9uIG51bWJlciBSQUQyNjExMDAwMSAgTWFuY2hlc3RlciBVbml2ZXJzaXR5IE5IUyBGb3VuZGF0aW9uIFRydXN0KSBUaiBUKgooKSBUaiBUKgooQ2xpbmljYWwgaGlzdG9yeTogU3RhZ2luZyBvZiBzdXNwZWN0ZWQgY29sb3JlY3RhbCBjYW5jZXIuKSBUaiBUKgooVGVjaG5pcXVlOiBQb3J0YWwgdmVub3VzIHBoYXNlIENUIG9mIHRoZSB0aG9yYXgsIGFiZG9tZW4gYW5kIHBlbHZpcykgVGogVCoKKGZvbGxvd2luZyBpbnRyYXZlbm91cyBjb250cmFzdC4pIFRqIFQqCihGaW5kaW5nczogRXhhbXBsZSBmaW5kaW5ncyBmb3IgYSBwcm9vZi1vZi1jb25jZXB0IHJlcG9ydC4pIFRqIFQqCihOb3QgYSByZWFsIHBhdGllbnQgb3IgYSByZWFsIHJlcG9ydC4pIFRqIFQqCihDb25jbHVzaW9uOiBFeGFtcGxlIGNvbmNsdXNpb24gZm9yIGEgcHJvb2Ytb2YtY29uY2VwdCByZXBvcnQuKSBUaiBUKgooKSBUaiBUKgooUmVwb3J0ZWQgYnkgRHIgUm9iaW4gRVhBTVBMRSBcKGZpY3Rpb25hbFwpLCAyOSBPY3RvYmVyIDIwMjYpIFRqIFQqCkVUCmVuZHN0cmVhbQplbmRvYmoKeHJlZgowIDYKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDA5IDAwMDAwIG4gCjAwMDAwMDAwNTggMDAwMDAgbiAKMDAwMDAwMDExNSAwMDAwMCBuIAowMDAwMDAwMjQxIDAwMDAwIG4gCjAwMDAwMDAzMTEgMDAwMDAgbiAKdHJhaWxlcgo8PCAvU2l6ZSA2IC9Sb290IDEgMCBSID4+CnN0YXJ0eHJlZgoxMDU5CiUlRU9GCg=="
+* data = "JVBERi0xLjQKMSAwIG9iago8PCAvVHlwZSAvQ2F0YWxvZyAvUGFnZXMgMiAwIFIgPj4KZW5kb2JqCjIgMCBvYmoKPDwgL1R5cGUgL1BhZ2VzIC9LaWRzIFszIDAgUl0gL0NvdW50IDEgPj4KZW5kb2JqCjMgMCBvYmoKPDwgL1R5cGUgL1BhZ2UgL1BhcmVudCAyIDAgUiAvTWVkaWFCb3ggWzAgMCA1OTUgODQyXSAvQ29udGVudHMgNiAwIFIgL1Jlc291cmNlcyA8PCAvRm9udCA8PCAvRjEgNCAwIFIgL0YyIDUgMCBSID4+ID4+ID4+CmVuZG9iago0IDAgb2JqCjw8IC9UeXBlIC9Gb250IC9TdWJ0eXBlIC9UeXBlMSAvQmFzZUZvbnQgL0hlbHZldGljYSA+PgplbmRvYmoKNSAwIG9iago8PCAvVHlwZSAvRm9udCAvU3VidHlwZSAvVHlwZTEgL0Jhc2VGb250IC9IZWx2ZXRpY2EtQm9sZCA+PgplbmRvYmoKNiAwIG9iago8PCAvTGVuZ3RoIDI5NDYgPj4Kc3RyZWFtCkJUCjUwIDgwMCBUZAovRjIgMTYgVGYgMCAtMjAgVGQgKFJhZGlvbG9neSBSZXBvcnQpIFRqCi9GMiAxMiBUZiAwIC0xNiBUZCAoQ1QgVGhvcmF4IGFiZG9tZW4gcGVsdmlzIHdpdGggY29udHJhc3QpIFRqCi9GMSAxMCBUZiAwIC0xNCBUZCAoTWFuY2hlc3RlciBVbml2ZXJzaXR5IE5IUyBGb3VuZGF0aW9uIFRydXN0IFwoT0RTIFIwQVwpKSBUagovRjIgMTAgVGYgMCAtMTQgVGQgKEZJQ1RJVElPVVMgRVhBTVBMRSAtIG5vdCBhIHJlYWwgcGF0aWVudCBvciBhIHJlYWwgcmVwb3J0KSBUagowIC04IFRkCi9GMSAxMCBUZiAwIC0xNCBUZCAoUGF0aWVudDogTUFOQ0hFU1RFUiwgU2Fuc2EgICAgICBOSFMgTnVtYmVyOiA5NzMgNzM4IDMxOTIgXChOVyBHTVNBIHRlc3QgcGF0aWVudFwpKSBUagovRjEgMTAgVGYgMCAtMTQgVGQgKERhdGUgb2YgYmlydGg6IDIxLVNlcC0xOTcyICAgICAgTVJOOiBSMEE0OTkwNDE1KSBUagovRjEgMTAgVGYgMCAtMTQgVGQgKEFjY2Vzc2lvbiBudW1iZXI6IFJBRDI2MTEwMDAxICAgUmVwb3J0IG51bWJlcjogUlBULTI2LTAwMDU2NzgpIFRqCi9GMSAxMCBUZiAwIC0xNCBUZCAoUmVxdWVzdGVkIGJ5OiBDb2xvcmVjdGFsIFN1cmdlcnkgICBSZXBvcnQgc3RhdHVzOiBGaW5hbCkgVGoKL0YxIDEwIFRmIDAgLTE0IFRkIChFeGFtaW5hdGlvbjogMjgtT2N0LTIwMjYgMTQ6MDIgICBSZXBvcnRlZDogMjktT2N0LTIwMjYgMDk6NDUpIFRqCjAgLTggVGQKL0YyIDExIFRmIDAgLTE1IFRkIChFeGFtaW5hdGlvbikgVGoKL0YxIDEwIFRmIDAgLTE0IFRkIChDVCB0aG9yYXgsIGFiZG9tZW4gYW5kIHBlbHZpcyB3aXRoIGNvbnRyYXN0IFwoTklDSVAgQ0NIQVBDXCkuIDEgc2VyaWVzLCA0MTIgaW1hZ2VzLikgVGoKMCAtOCBUZAovRjIgMTEgVGYgMCAtMTUgVGQgKENsaW5pY2FsIGhpc3RvcnkpIFRqCi9GMSAxMCBUZiAwIC0xNCBUZCAoQ2FlY2FsIG1hc3MgZm91bmQgYXQgY29sb25vc2NvcHk7IGJpb3BzeSBhd2FpdGVkLiBTdGFnaW5nIG9mIHN1c3BlY3RlZCBjb2xvcmVjdGFsIGNhbmNlci4pIFRqCjAgLTggVGQKL0YyIDExIFRmIDAgLTE1IFRkIChUZWNobmlxdWUpIFRqCi9GMSAxMCBUZiAwIC0xNCBUZCAoUG9ydGFsIHZlbm91cyBwaGFzZSBDVCBvZiB0aGUgdGhvcmF4LCBhYmRvbWVuIGFuZCBwZWx2aXMgZm9sbG93aW5nIDEwMCBtbCBpbnRyYXZlbm91cyBjb250cmFzdC4pIFRqCi9GMSAxMCBUZiAwIC0xNCBUZCAoTm8gaW1tZWRpYXRlIGFkdmVyc2UgcmVhY3Rpb24uIERMUCA4MjAgbUd5LmNtLikgVGoKMCAtOCBUZAovRjIgMTEgVGYgMCAtMTUgVGQgKENvbXBhcmlzb24pIFRqCi9GMSAxMCBUZiAwIC0xNCBUZCAoTm8gcHJldmlvdXMgY3Jvc3Mtc2VjdGlvbmFsIGltYWdpbmcgYXZhaWxhYmxlLikgVGoKMCAtOCBUZAovRjIgMTEgVGYgMCAtMTUgVGQgKEZpbmRpbmdzKSBUagovRjEgMTAgVGYgMCAtMTQgVGQgKFRob3JheDogTm8gcHVsbW9uYXJ5IG5vZHVsZXMgb3IgbWFzc2VzLiBObyBtZWRpYXN0aW5hbCBvciBoaWxhciBseW1waGFkZW5vcGF0aHkuIE5vIHBsZXVyYWwpIFRqCi9GMSAxMCBUZiAwIC0xNCBUZCAoZWZmdXNpb24uKSBUagovRjEgMTAgVGYgMCAtMTQgVGQgKEFiZG9tZW4gYW5kIHBlbHZpczogSXJyZWd1bGFyIGNpcmN1bWZlcmVudGlhbCB3YWxsIHRoaWNrZW5pbmcgb2YgdGhlIGNhZWN1bSBvdmVyIDQ1IG1tLCB3aXRoKSBUagovRjEgMTAgVGYgMCAtMTQgVGQgKHN0cmFuZGluZyBvZiB0aGUgYWRqYWNlbnQgcGVyaWNvbGljIGZhdCwgaW4ga2VlcGluZyB3aXRoIHRoZSBrbm93biB0dW1vdXIuIFR3byBwZXJpY29saWMgbHltcGgpIFRqCi9GMSAxMCBUZiAwIC0xNCBUZCAobm9kZXMsIHRoZSBsYXJnZXN0IDggbW0gc2hvcnQgYXhpcy4gVGhlIGxpdmVyIGlzIG5vcm1hbCwgd2l0aCBubyBmb2NhbCBsZXNpb24uIE5vIGFzY2l0ZXMgb3IpIFRqCi9GMSAxMCBUZiAwIC0xNCBUZCAocGVyaXRvbmVhbCBkZXBvc2l0cy4gVGhlIHJlbWFpbmluZyBib3dlbCwga2lkbmV5cywgYWRyZW5hbHMsIHBhbmNyZWFzIGFuZCBzcGxlZW4gYXJlKSBUagovRjEgMTAgVGYgMCAtMTQgVGQgKHVucmVtYXJrYWJsZS4gTm8gc3VzcGljaW91cyBib25lIGxlc2lvbi4pIFRqCjAgLTggVGQKL0YyIDExIFRmIDAgLTE1IFRkIChDb25jbHVzaW9uKSBUagovRjIgMTAgVGYgMCAtMTQgVGQgKENhZWNhbCB0dW1vdXIgZXh0ZW5kaW5nIGJleW9uZCB0aGUgYm93ZWwgd2FsbCwgd2l0aCB0d28gc3VzcGljaW91cyBwZXJpY29saWMgbHltcGggbm9kZXMuIE5vKSBUagovRjIgMTAgVGYgMCAtMTQgVGQgKGV2aWRlbmNlIG9mIGRpc3RhbnQgbWV0YXN0YXNlcy4gUmFkaW9sb2dpY2FsIHN0YWdlIFQzIE4xIE0wLikgVGoKMCAtOCBUZAovRjIgMTEgVGYgMCAtMTUgVGQgKFJlY29tbWVuZGF0aW9uKSBUagovRjEgMTAgVGYgMCAtMTQgVGQgKERpc2N1c3MgYXQgdGhlIGNvbG9yZWN0YWwgY2FuY2VyIE1EVC4pIFRqCjAgLTggVGQKL0YyIDExIFRmIDAgLTE1IFRkIChDb21tdW5pY2F0aW9uKSBUagovRjEgMTAgVGYgMCAtMTQgVGQgKE5vdCBhbiB1cmdlbnQgdW5leHBlY3RlZCBmaW5kaW5nLiBSZXBvcnQgYWRkZWQgdG8gdGhlIGNvbG9yZWN0YWwgTURUIGxpc3Qgb24gMjktT2N0LTIwMjYuKSBUagowIC04IFRkCi9GMSAxMCBUZiAwIC0xNCBUZCAoUmVwb3J0ZWQgYnk6IERyIFJvYmluIEVYQU1QTEUsIENvbnN1bHRhbnQgUmFkaW9sb2dpc3QgXChHTUMgQzEyMzQ1NjdcKSBcKGZpY3Rpb25hbFwpKSBUagovRjEgMTAgVGYgMCAtMTQgVGQgKEV4YW1pbmF0aW9uIHBlcmZvcm1lZCBieTogSm9yZGFuIFNBTVBMRSwgRGlhZ25vc3RpYyBSYWRpb2dyYXBoZXIgXChIQ1BDIFJBMTIzNDU2XCkgXChmaWN0aW9uYWxcKSkgVGoKL0YxIDEwIFRmIDAgLTE0IFRkIChWZXJpZmllZDogMjktT2N0LTIwMjYgMDk6NDUgLSBNYW5jaGVzdGVyIFVuaXZlcnNpdHkgTkhTIEZvdW5kYXRpb24gVHJ1c3QpIFRqCkVUCmVuZHN0cmVhbQplbmRvYmoKeHJlZgowIDcKMDAwMDAwMDAwMCA2NTUzNSBmIAowMDAwMDAwMDA5IDAwMDAwIG4gCjAwMDAwMDAwNTggMDAwMDAgbiAKMDAwMDAwMDExNSAwMDAwMCBuIAowMDAwMDAwMjUxIDAwMDAwIG4gCjAwMDAwMDAzMjEgMDAwMDAgbiAKMDAwMDAwMDM5NiAwMDAwMCBuIAp0cmFpbGVyCjw8IC9TaXplIDcgL1Jvb3QgMSAwIFIgPj4Kc3RhcnR4cmVmCjMzOTMKJSVFT0YK"
 
 // HL7 v2 ORU^R01 OBX type ED (embedded PDF), converted following the NW GMSA
 // convention: OBX-5 -> Binary (RadiologyReportPDF), OBX -> DocumentReference

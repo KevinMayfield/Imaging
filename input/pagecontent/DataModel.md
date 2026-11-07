@@ -117,6 +117,8 @@ the National Imaging Registry, mapped these items to FHIR `DiagnosticReport`
 following the [HL7 v2-to-FHIR ORU^R01 mapping](https://build.fhir.org/ig/HL7/v2-to-fhir/ConceptMap-message-oru-r01-to-bundle.html).
 The table below is based on that draft. It has **not** been checked against the
 RCR text (**To confirm**), and the HL7 v2 and DICOM columns are indicative.
+[Radiology Report](RadiologyReport.html) gives the same items grouped as a report,
+with the FHIR document layout and a mock of the document.
 
 | Data item | FHIR DiagnosticReport | HL7 v2 (ORU) | DICOM | NHS Data Dictionary |
 |---|---|---|---|---|

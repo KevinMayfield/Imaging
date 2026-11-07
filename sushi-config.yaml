@@ -70,6 +70,9 @@ pages:
   RAD-128.md:
     title: Send Imaging Result [RAD-128]
     generation: markdown
+  RadiologyReport.md:
+    title: Radiology Report
+    generation: markdown
   DataModel.md:
     title: FHIR Resources
     generation: markdown
@@ -92,6 +95,7 @@ menu:
     Procedure Scheduled [RAD-4] / Update [RAD-13]: RAD-4.html
     Send Imaging Result [RAD-128]: RAD-128.html
   Data Models (Volume 3):
+    Radiology Report: RadiologyReport.html
     FHIR Resources: DataModel.html
     Logical Model: StructureDefinition-RadiologyReport.html
     Terminology: terminology.html
